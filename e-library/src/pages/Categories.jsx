@@ -13,6 +13,7 @@ const [categoryName, setCategoryName] = useState("");
 const [membershipLevel, setMembershipLevel] = useState("basic");
 
 const [editingId, setEditingId] = useState(null);
+const [search, setSearch] = useState("");
 
   const loadCategories = async () => {
     try {
@@ -103,17 +104,43 @@ const handleAdd = async () => {
             <option value="premium">Premium</option>
           </select>
 
-          <button
-            onClick={handleAdd}
-            className="bg-green-700 text-white rounded-lg"
-          >
-              {editingId ? "Update Category" : "Add Category"}
-          </button>
+<div className="flex gap-2">
+
+  <button
+    onClick={handleAdd}
+    className="bg-green-700 text-white rounded-lg px-4 py-2"
+  >
+    {editingId ? "Update Category" : "Add Category"}
+  </button>
+
+  {editingId && (
+    <button
+      onClick={() => {
+        setEditingId(null);
+        setCategoryName("");
+        setMembershipLevel("basic");
+      }}
+      className="bg-gray-500 text-white rounded-lg px-4 py-2"
+    >
+      Cancel
+    </button>
+  )}
+
+</div>
 
         </div>
 
       </div>
 
+        <div className="bg-white rounded-xl shadow p-4 mb-6">
+  <input
+    type="text"
+    placeholder="🔍 Search Category..."
+    className="border rounded-lg p-3 w-full"
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+</div>
       <div className="bg-white rounded-xl shadow">
 
         <table className="w-full">
@@ -131,7 +158,13 @@ const handleAdd = async () => {
 
           <tbody>
 
-            {categories.map((cat) => (
+            {categories
+  .filter((cat) =>
+    cat.category_name
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  )
+  .map((cat) => (
 
               <tr
                 key={cat.id}
