@@ -13,6 +13,10 @@ function Books() {
   const [books, setBooks] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  const [search, setSearch] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterAuthor, setFilterAuthor] = useState("");
+
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -22,6 +26,7 @@ function Books() {
   const [cover, setCover] = useState(null);
 
   const [editingId, setEditingId] = useState(null);
+  const [previewBook, setPreviewBook] = useState(null);
 
   const loadBooks = async () => {
     try {
@@ -182,6 +187,40 @@ function Books() {
         </div>
       </div>
 
+      {/* 🔍 FILTER SECTION (NEW) */}
+      <div className="bg-white p-4 rounded-xl shadow mb-6">
+        <div className="grid grid-cols-3 gap-4">
+
+          <input
+            className="border p-3 rounded"
+            placeholder="🔍 Search by title..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          <select
+            className="border p-3 rounded"
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+          >
+            <option value="">All Categories</option>
+            {categories.map((c) => (
+              <option key={c.id} value={c.category_name}>
+                {c.category_name}
+              </option>
+            ))}
+          </select>
+
+          <input
+            className="border p-3 rounded"
+            placeholder="Filter by author..."
+            value={filterAuthor}
+            onChange={(e) => setFilterAuthor(e.target.value)}
+          />
+
+        </div>
+      </div>
+
       {/* TABLE */}
       <div className="bg-white rounded-xl shadow overflow-x-auto">
         <table className="w-full text-center">
@@ -197,35 +236,115 @@ function Books() {
           </thead>
 
           <tbody>
-            {books.map((b) => (
-              <tr key={b.id} className="border-b">
-                <td className="p-3">{b.id}</td>
-                <td>{b.title}</td>
-                <td>{b.author}</td>
-                <td>{b.category_name}</td>
-                <td>{b.membership_level}</td>
-                <td>
-                  <div className="flex gap-2 justify-center">
-                    <button
-                      onClick={() => handleEdit(b)}
-                      className="bg-blue-600 text-white px-3 py-1 rounded"
-                    >
-                      Edit
-                    </button>
+            {books
+              .filter((b) =>
+                b.title.toLowerCase().includes(search.toLowerCase())
+              )
+              .filter((b) =>
+                filterCategory ? b.category_name === filterCategory : true
+              )
+              .filter((b) =>
+                b.author.toLowerCase().includes(filterAuthor.toLowerCase())
+              )
+              .map((b) => (
+                <tr key={b.id} className="border-b">
+                  <td className="p-3">{b.id}</td>
+                  <td>{b.title}</td>
+                  <td>{b.author}</td>
+                  <td>{b.category_name}</td>
+                  <td>{b.membership_level}</td>
+<td>
+  <div className="flex gap-2 justify-center">
+    <button
+      onClick={() => handleEdit(b)}
+      className="bg-blue-600 text-white px-3 py-1 rounded"
+    >
+      Edit
+    </button>
 
-                    <button
-                      onClick={() => handleDelete(b.id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+    <button
+      onClick={() => handleDelete(b.id)}
+      className="bg-red-600 text-white px-3 py-1 rounded"
+    >
+      Delete
+    </button>
+
+    <button
+      onClick={() => setPreviewBook(b)}
+      className="bg-green-600 text-white px-3 py-1 rounded"
+    >
+      View
+    </button>
+  </div>
+</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
+      {previewBook && (
+  <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+    
+    <div className="bg-white w-[90%] md:w-[70%] h-[90%] rounded-xl p-6 overflow-auto relative">
+
+      {/* CLOSE BUTTON */}
+      <button
+        onClick={() => setPreviewBook(null)}
+        className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded"
+      >
+        Close
+      </button>
+
+      {/* BOOK INFO */}
+      <div className="grid md:grid-cols-2 gap-6">
+
+        {/* COVER */}
+        <div className="flex justify-center">
+<img
+  src={
+    previewBook.cover_image
+      ? `http://localhost:5000/uploads/covers/${previewBook.cover_image}`
+      : "https://via.placeholder.com/200"
+  }
+  alt="cover"
+  className="h-80 object-cover rounded shadow"
+/>
+        </div>
+
+        {/* DETAILS */}
+        <div>
+          <h2 className="text-2xl font-bold mb-2">
+            {previewBook.title}
+          </h2>
+
+          <p className="text-gray-600 mb-2">
+            <b>Author:</b> {previewBook.author}
+          </p>
+
+          <p className="text-gray-600 mb-2">
+            <b>Category:</b> {previewBook.category_name}
+          </p>
+
+          <p className="text-gray-600 mb-4">
+            <b>Level:</b> {previewBook.membership_level}
+          </p>
+
+          {/* PDF OPEN BUTTON */}
+{previewBook.pdf_file && (
+  <a
+    href={`http://localhost:5000/uploads/pdfs/${previewBook.pdf_file}`}
+    target="_blank"
+    rel="noreferrer"
+    className="bg-green-700 text-white px-4 py-2 rounded"
+  >
+    Open PDF 📖
+  </a>
+)}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
     </AdminLayout>
   );
 }

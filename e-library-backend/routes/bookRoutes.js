@@ -1,3 +1,4 @@
+const { verifyToken } = require("../middleware/authMiddleware");
 const express = require("express");
 const router = express.Router();
 
@@ -10,24 +11,30 @@ const {
 
 const { upload } = require("../middleware/upload");
 
+// GET all books
+router.get("/", getBooks);
+
+// ADD book
 router.post(
   "/",
   upload.fields([
     { name: "pdf", maxCount: 1 },
-    { name: "cover", maxCount: 1 }
+    { name: "cover", maxCount: 1 },
   ]),
   addBook
 );
 
-// 📚 UPDATE book
+// UPDATE book
 router.put(
   "/:id",
-  uploadPdf.single("pdf"),
-  uploadCover.single("cover"),
+  upload.fields([
+    { name: "pdf", maxCount: 1 },
+    { name: "cover", maxCount: 1 },
+  ]),
   updateBook
 );
 
-// 📚 DELETE book
+// DELETE book
 router.delete("/:id", deleteBook);
 
 module.exports = router;

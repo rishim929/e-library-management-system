@@ -1,42 +1,51 @@
 const multer = require("multer");
 const path = require("path");
 
-// Storage for PDF files
-const pdfStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/pdfs");
-  },
+const storage = multer.diskStorage({
+destination: (req, file, cb) => {
+  let uploadPath;
+
+  if (file.fieldname === "pdf") {
+    uploadPath = path.join(__dirname, "../uploads/pdfs");
+  } else if (file.fieldname === "cover") {
+    uploadPath = path.join(__dirname, "../uploads/covers");
+  } else {
+    return cb(new Error("Invalid field name"));
+  }
+
+  cb(null, uploadPath);
+},
+
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
-// Storage for Cover Images
-const coverStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/covers");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-
-function fileFilter(req, file, cb) {
-  const allowedTypes = /pdf|jpeg|jpg|png/;
+const fileFilter = (req, file, cb) => {
   const ext = path.extname(file.originalname).toLowerCase();
 
-  if (allowedTypes.test(ext)) {
-    cb(null, true);
-  } else {
-    cb(new Error("Only PDF, JPG, PNG allowed"));
+  if (file.fieldname === "pdf") {
+    if (ext === ".pdf") {
+      return cb(null, true);
+    }
+    return cb(new Error("Only PDF files are allowed for the PDF field."));
   }
-}
 
-// Upload configs
-const uploadPdf = multer({ storage: pdfStorage, fileFilter });
-const uploadCover = multer({ storage: coverStorage, fileFilter });
+  if (file.fieldname === "cover") {
+    if ([".jpg", ".jpeg", ".png"].includes(ext)) {
+      return cb(null, true);
+    }
+    return cb(
+      new Error("Only JPG, JPEG and PNG files are allowed for the cover image.")
+    );
+  }
 
-module.exports = {
-  uploadPdf,
-  uploadCover,
+  cb(new Error("Unexpected file field."));
 };
+
+const upload = multer({
+  storage,
+  fileFilter,
+});
+
+module.exports = { upload };

@@ -38,11 +38,11 @@ exports.login = (req, res) => {
       return res.json({ message: "Wrong password" });
     }
 
-    const token = jwt.sign(
-      { id: user.id, role: user.role },
-      "secretkey",
-      { expiresIn: "1d" }
-    );
+const token = jwt.sign(
+  { id: user.id, role: user.role },
+  process.env.JWT_SECRET,
+  { expiresIn: "1d" }
+);
 
     res.json({
       message: "Login successful",
