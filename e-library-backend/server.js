@@ -17,16 +17,18 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // 👆 this makes your images/PDF accessible in browser
 
 // Routes
-// Routes
 const authRoutes = require("./routes/authRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const bookRoutes = require("./routes/bookRoutes");
+const userRoutes = require("./routes/userRoutes"); 
+const subscriptionRoutes = require("./routes/subscriptionRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/dashboard", require("./routes/dashboardRoutes"));
+app.use("/api/subscriptions", subscriptionRoutes);
 
 // Server
 const PORT = process.env.PORT || 5000;

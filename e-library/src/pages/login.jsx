@@ -15,12 +15,20 @@ function Login() {
       const res = await login({ email, password });
 
       if (res.data.token) {
+        // Save token and user
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user));
 
         alert("Login Successful");
 
-        navigate("/");
+        // Redirect based on role
+        if (res.data.user.role === "admin") {
+          navigate("/admin/dashboard");
+        } else if (res.data.user.role === "subscriber") {
+          navigate("/user/dashboard");
+        } else {
+          navigate("/");
+        }
       } else {
         alert(res.data.message);
       }

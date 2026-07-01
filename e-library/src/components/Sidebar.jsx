@@ -9,12 +9,12 @@ import {
 } from "react-icons/fa";
 
 const menuItems = [
-  { name: "Dashboard", path: "/", icon: <FaHome /> },
-  { name: "Books", path: "/books", icon: <FaBook /> },
-  { name: "Categories", path: "/categories", icon: <FaList /> },
-  { name: "Users", path: "/users", icon: <FaUsers /> },
-  { name: "Subscriptions", path: "/subscriptions", icon: <FaMoneyBill /> },
-  { name: "Reports", path: "/reports", icon: <FaChartBar /> },
+  { name: "Dashboard", path: "/admin/dashboard", icon: <FaHome /> },
+  { name: "Books", path: "/admin/books", icon: <FaBook /> },
+  { name: "Categories", path: "/admin/categories", icon: <FaList /> },
+  { name: "Users", path: "/admin/users", icon: <FaUsers /> },
+  { name: "Subscriptions", path: "/admin/subscriptions", icon: <FaMoneyBill /> },
+  { name: "Reports", path: "/admin/reports", icon: <FaChartBar /> },
 ];
 
 function Sidebar() {

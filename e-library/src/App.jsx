@@ -1,13 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
 import Dashboard from "./pages/Dashboard";
 import Books from "./pages/Books";
 import Categories from "./pages/Categories";
 import Users from "./pages/Users";
 import Subscriptions from "./pages/Subscriptions";
 import Reports from "./pages/Reports";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import UserDashboard from "./pages/UserDashboard"; // NEW
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -17,12 +20,23 @@ function App() {
       <Routes>
 
         {/* Public Routes */}
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected Routes */}
+        {/* User Dashboard */}
         <Route
-          path="/"
+          path="/user/dashboard"
+          element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Admin Routes */}
+        <Route
+          path="/admin/dashboard"
           element={
             <ProtectedRoute>
               <Dashboard />
@@ -31,16 +45,7 @@ function App() {
         />
 
         <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/books"
+          path="/admin/books"
           element={
             <ProtectedRoute>
               <Books />
@@ -49,7 +54,7 @@ function App() {
         />
 
         <Route
-          path="/categories"
+          path="/admin/categories"
           element={
             <ProtectedRoute>
               <Categories />
@@ -58,7 +63,7 @@ function App() {
         />
 
         <Route
-          path="/users"
+          path="/admin/users"
           element={
             <ProtectedRoute>
               <Users />
@@ -67,7 +72,7 @@ function App() {
         />
 
         <Route
-          path="/subscriptions"
+          path="/admin/subscriptions"
           element={
             <ProtectedRoute>
               <Subscriptions />
@@ -76,7 +81,7 @@ function App() {
         />
 
         <Route
-          path="/reports"
+          path="/admin/reports"
           element={
             <ProtectedRoute>
               <Reports />
