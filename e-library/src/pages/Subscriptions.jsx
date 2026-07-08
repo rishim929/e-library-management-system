@@ -1,66 +1,69 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminLayout from "../layouts/AdminLayout";
-import { upgradeSubscription } from "../services/subscriptionService";
+import { getSubscriptions } from "../services/subscriptionService";
 
 function Subscriptions() {
-  const [loading, setLoading] = useState(false);
+  const [subscriptions, setSubscriptions] = useState([]);
 
-  const handleUpgrade = async () => {
+  const loadSubscriptions = async () => {
     try {
-      setLoading(true);
-
-      await upgradeSubscription();
-
-      const user = JSON.parse(localStorage.getItem("user"));
-      user.membership_type = "premium";
-      localStorage.setItem("user", JSON.stringify(user));
-
-      alert("Subscription upgraded successfully!");
-
-      window.location.reload();
+      const res = await getSubscriptions();
+      setSubscriptions(res.data);
     } catch (err) {
       console.log(err);
-      alert("Upgrade failed");
-    } finally {
-      setLoading(false);
     }
   };
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    loadSubscriptions();
+  }, []);
 
   return (
     <AdminLayout>
       <h1 className="text-3xl font-bold mb-8">
-        Subscription
+        Subscription Management
       </h1>
 
-      <div className="bg-white rounded-xl shadow p-8 max-w-xl">
+      <div className="bg-white rounded-xl shadow overflow-x-auto">
+        <table className="w-full text-center">
+          <thead className="bg-green-700 text-white">
+            <tr>
+              <th className="p-3">ID</th>
+              <th>User</th>
+              <th>Email</th>
+              <th>Plan</th>
+              <th>Status</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+            </tr>
+          </thead>
 
-        <h2 className="text-2xl font-bold mb-4">
-          Current Plan
-        </h2>
-
-        <p className="text-xl mb-6">
-          {user?.membership_type?.toUpperCase()}
-        </p>
-
-        {user?.membership_type === "premium" ? (
-          <button
-            disabled
-            className="bg-gray-500 text-white px-6 py-3 rounded"
-          >
-            Premium Active
-          </button>
-        ) : (
-          <button
-            onClick={handleUpgrade}
-            disabled={loading}
-            className="bg-green-700 text-white px-6 py-3 rounded"
-          >
-            {loading ? "Upgrading..." : "Upgrade to Premium"}
-          </button>
-        )}
-
+          <tbody>
+            {subscriptions.length > 0 ? (
+              subscriptions.map((sub) => (
+                <tr key={sub.id} className="border-b">
+                  <td className="p-3">{sub.id}</td>
+                  <td>{sub.name}</td>
+                  <td>{sub.email}</td>
+                  <td>{sub.membership_type}</td>
+                  <td>{sub.status}</td>
+                  <td>
+                    {new Date(sub.start_date).toLocaleDateString()}
+                  </td>
+                  <td>
+                    {new Date(sub.end_date).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="p-6">
+                  No subscriptions found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </AdminLayout>
   );

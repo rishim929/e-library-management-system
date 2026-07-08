@@ -9,15 +9,29 @@ exports.register = (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, 10);
 
   const sql = `
-INSERT INTO users
-(name, email, password, role, membership_type)
-VALUES (?, ?, ?, 'subscriber', 'basic')
-`;
+    INSERT INTO users
+    (name, email, password, role, membership_type)
+    VALUES (?, ?, ?, 'subscriber', 'basic')
+  `;
 
   db.query(sql, [name, email, hashedPassword], (err) => {
-    if (err) return res.json({ error: err });
+    if (err) {
+      console.log(err);
 
-    res.json({ message: "User registered successfully" });
+      if (err.code === "ER_DUP_ENTRY") {
+        return res.status(400).json({
+          message: "Email already registered",
+        });
+      }
+
+      return res.status(500).json({
+        message: "Registration failed",
+      });
+    }
+
+    res.json({
+      message: "User registered successfully",
+    });
   });
 };
 

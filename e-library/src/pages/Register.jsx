@@ -27,10 +27,18 @@ function Register() {
       alert(res.data.message);
 
       navigate("/login");
-    } catch (err) {
-      console.log(err);
-      alert("Registration Failed");
-    }
+    } 
+    catch (err) {
+  console.log(err);
+  console.log(err.response);
+  console.log(err.response?.data);
+
+  alert(
+    err.response?.data?.message ||
+    JSON.stringify(err.response?.data) ||
+    "Registration Failed"
+  );
+}
   };
 
   return (
