@@ -10,13 +10,14 @@ const {
 } = require("../controllers/userController");
 
 const { verifyToken } = require("../middleware/authMiddleware");
+const { isAdmin } = require("../middleware/adminMiddleware");
 
-// Admin
-router.get("/", getUsers);
-router.put("/:id", updateUser);
-router.delete("/:id", deleteUser);
+// Admin only
+router.get("/", verifyToken, isAdmin, getUsers);
+router.put("/:id", verifyToken, isAdmin, updateUser);
+router.delete("/:id", verifyToken, isAdmin, deleteUser);
 
-// Logged-in User
+// Logged in user
 router.get("/me", verifyToken, getMyProfile);
 router.put("/me", verifyToken, updateMyProfile);
 

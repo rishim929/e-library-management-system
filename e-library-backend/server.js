@@ -12,7 +12,7 @@ require("./config/db");
 app.use(cors());
 app.use(express.json());
 
-// 📌 STEP 6: Serve uploaded files (IMPORTANT)
+//  STEP 6: Serve uploaded files (IMPORTANT)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // 👆 this makes your images/PDF accessible in browser
 
@@ -22,6 +22,8 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const bookRoutes = require("./routes/bookRoutes");
 const userRoutes = require("./routes/userRoutes"); 
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
+const readingHistoryRoutes = require("./routes/readingHistoryRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
@@ -29,6 +31,8 @@ app.use("/api/books", bookRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 app.use("/api/subscriptions", subscriptionRoutes);
+app.use("/api/reading-history", readingHistoryRoutes);
+app.use("/api/payments", paymentRoutes);
 
 // Server
 const PORT = process.env.PORT || 5000;

@@ -76,7 +76,9 @@ function MySubscription() {
         ) : (
           <>
             <button
-              onClick={handleUpgrade}
+             onClick={() => {
+  window.location.href = "/user/payment";
+}}
               disabled={loading}
               className="w-full bg-blue-700 text-white py-3 rounded hover:bg-blue-800"
             >

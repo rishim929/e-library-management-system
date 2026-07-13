@@ -1,4 +1,3 @@
-const { verifyToken } = require("../middleware/authMiddleware");
 const express = require("express");
 const router = express.Router();
 
@@ -10,13 +9,17 @@ const {
 } = require("../controllers/bookController");
 
 const { upload } = require("../middleware/upload");
+const { verifyToken } = require("../middleware/authMiddleware");
+const { isAdmin } = require("../middleware/adminMiddleware");
 
-// GET all books
+// Everyone can view books
 router.get("/", getBooks);
 
-// ADD book
+// Only admin can add book
 router.post(
   "/",
+  verifyToken,
+  isAdmin,
   upload.fields([
     { name: "pdf", maxCount: 1 },
     { name: "cover", maxCount: 1 },
@@ -24,9 +27,11 @@ router.post(
   addBook
 );
 
-// UPDATE book
+// Only admin can update book
 router.put(
   "/:id",
+  verifyToken,
+  isAdmin,
   upload.fields([
     { name: "pdf", maxCount: 1 },
     { name: "cover", maxCount: 1 },
@@ -34,7 +39,12 @@ router.put(
   updateBook
 );
 
-// DELETE book
-router.delete("/:id", deleteBook);
+// Only admin can delete book
+router.delete(
+  "/:id",
+  verifyToken,
+  isAdmin,
+  deleteBook
+);
 
 module.exports = router;

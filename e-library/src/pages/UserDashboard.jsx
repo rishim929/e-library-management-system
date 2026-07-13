@@ -1,12 +1,17 @@
+import UserLayout from "../layouts/UserLayout";
 import { useEffect, useState } from "react";
 import { getBooks } from "../services/bookService";
+import { saveReadingHistory } from "../services/readingHistoryService";
 
 function UserDashboard() {
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
 
-  // Logged in user
   const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    loadBooks();
+  }, []);
 
   const loadBooks = async () => {
     try {
@@ -17,50 +22,25 @@ function UserDashboard() {
     }
   };
 
-  useEffect(() => {
-    loadBooks();
-  }, []);
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.href = "/";
-  };
-
   return (
-    <div className="min-h-screen bg-gray-100">
-
-      {/* Header */}
-      <div className="bg-green-700 text-white p-5 flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold">📚 E-Library</h1>
-          <p className="text-sm">
-            Welcome, {user?.name}
-          </p>
-        </div>
-
-        <button
-          onClick={logout}
-          className="bg-white text-green-700 px-4 py-2 rounded font-semibold"
-        >
-          Logout
-        </button>
-      </div>
+    <UserLayout>
+      <h1 className="text-3xl font-bold mb-6">
+        Welcome, {user?.name}
+      </h1>
 
       {/* Search */}
-      <div className="max-w-6xl mx-auto mt-8 px-5">
+      <div className="mb-8">
         <input
           type="text"
           placeholder="Search books..."
-          className="w-full border p-3 rounded"
+          className="w-full border rounded-lg p-3"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
       {/* Books */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 mt-8 px-5 pb-10">
-
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {books
           .filter((book) =>
             book.title.toLowerCase().includes(search.toLowerCase())
@@ -81,7 +61,6 @@ function UserDashboard() {
               />
 
               <div className="p-4">
-
                 <h2 className="text-xl font-bold">
                   {book.title}
                 </h2>
@@ -107,13 +86,12 @@ function UserDashboard() {
                   </span>
                 </p>
 
-                {/* Membership Check */}
                 {book.membership_level === "premium" &&
                 user?.membership_type !== "premium" ? (
                   <>
                     <button
                       disabled
-                      className="w-full mt-5 bg-gray-500 text-white py-2 rounded cursor-not-allowed"
+                      className="w-full mt-5 bg-gray-500 text-white py-2 rounded"
                     >
                       🔒 Premium Book
                     </button>
@@ -123,14 +101,26 @@ function UserDashboard() {
                     </p>
                   </>
                 ) : book.pdf_file ? (
-                  <a
-                    href={`http://localhost:5000/uploads/pdfs/${book.pdf_file}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block text-center mt-5 bg-green-700 text-white py-2 rounded hover:bg-green-800"
+                  <button
+                    onClick={async () => {
+                      try {
+                        await saveReadingHistory({
+                          book_id: book.id,
+                          last_page: 1,
+                        });
+
+                        window.open(
+                          `http://localhost:5000/uploads/pdfs/${book.pdf_file}`,
+                          "_blank"
+                        );
+                      } catch (err) {
+                        console.log(err);
+                      }
+                    }}
+                    className="w-full mt-5 bg-green-700 text-white py-2 rounded hover:bg-green-800"
                   >
                     📖 Read Book
-                  </a>
+                  </button>
                 ) : (
                   <button
                     disabled
@@ -143,7 +133,7 @@ function UserDashboard() {
             </div>
           ))}
       </div>
-    </div>
+    </UserLayout>
   );
 }
 
