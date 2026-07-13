@@ -1,7 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import ReadingHistory from "./pages/ReadingHistory";
-import Payments from "./pages/Payments"; // Admin payment page
+import Payments from "./pages/Payments";
+
+// Route Protection
 import AdminRoute from "./components/AdminRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Public Pages
 import Home from "./pages/Home";
@@ -23,8 +27,6 @@ import UserCategories from "./pages/UserCategories";
 import MySubscription from "./pages/MySubscription";
 import Profile from "./pages/Profile";
 
-import ProtectedRoute from "./components/ProtectedRoute";
-
 function App() {
   return (
     <BrowserRouter>
@@ -37,59 +39,68 @@ function App() {
 
         {/* ================= ADMIN ROUTES ================= */}
 
-<Route
-  path="/admin/dashboard"
-  element={
-    <AdminRoute>
-      <Dashboard />
-    </AdminRoute>
-  }
-/>
-        
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminRoute>
+              <Dashboard />
+            </AdminRoute>
+          }
+        />
 
-       <Route
-  path="/admin/books"
-  element={
-    <AdminRoute>
-      <Books />
-    </AdminRoute>
-  }
-/>
+        <Route
+          path="/admin/books"
+          element={
+            <AdminRoute>
+              <Books />
+            </AdminRoute>
+          }
+        />
 
-<Route
-  path="/admin/categories"
-  element={
-    <AdminRoute>
-      <Categories />
-    </AdminRoute>
-  }
-/>
+        <Route
+          path="/admin/categories"
+          element={
+            <AdminRoute>
+              <Categories />
+            </AdminRoute>
+          }
+        />
 
-<Route
-  path="/admin/users"
-  element={
-    <AdminRoute>
-      <Users />
-    </AdminRoute>
-  }
-/>
+        <Route
+          path="/admin/users"
+          element={
+            <AdminRoute>
+              <Users />
+            </AdminRoute>
+          }
+        />
 
-<Route
-  path="/admin/subscriptions"
-  element={
-    <AdminRoute>
-      <Subscriptions />
-    </AdminRoute>
-  }
-/>
-<Route
-  path="/admin/reports"
-  element={
-    <AdminRoute>
-      <Reports />
-    </AdminRoute>
-  }
-/>
+        <Route
+          path="/admin/subscriptions"
+          element={
+            <AdminRoute>
+              <Subscriptions />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/reports"
+          element={
+            <AdminRoute>
+              <Reports />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/payments"
+          element={
+            <AdminRoute>
+              <Payments />
+            </AdminRoute>
+          }
+        />
 
         {/* ================= USER ROUTES ================= */}
 
@@ -103,22 +114,14 @@ function App() {
         />
 
         <Route
-  path="/user/payment"
-  element={
-    <ProtectedRoute>
-      <Payment />
-    </ProtectedRoute>
-  }
-/>
-          
-          <Route
-  path="/user/history"
-  element={
-    <ProtectedRoute>
-      <ReadingHistory />
-    </ProtectedRoute>
-  }
-/>
+          path="/user/history"
+          element={
+            <ProtectedRoute>
+              <ReadingHistory />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/user/books"
           element={

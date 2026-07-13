@@ -24,6 +24,7 @@ const userRoutes = require("./routes/userRoutes");
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const readingHistoryRoutes = require("./routes/readingHistoryRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
@@ -33,6 +34,7 @@ app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/reading-history", readingHistoryRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // Server
 const PORT = process.env.PORT || 5000;

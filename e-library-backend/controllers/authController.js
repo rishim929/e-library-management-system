@@ -2,7 +2,7 @@ const db = require("../config/db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// REGISTER
+// ================= REGISTER =================
 exports.register = (req, res) => {
   const { name, email, password } = req.body;
 
@@ -29,23 +29,47 @@ exports.register = (req, res) => {
       });
     }
 
+    // ================= CREATE NOTIFICATION =================
+    db.query(
+      `
+      INSERT INTO notifications
+      (title, message, type)
+      VALUES (?, ?, ?)
+      `,
+      [
+        "New User Registration",
+        `${name} has registered a new account.`,
+        "user",
+      ],
+      (notifyErr) => {
+        if (notifyErr) {
+          console.log("Notification Error:", notifyErr);
+        }
+      }
+    );
+
     res.json({
       message: "User registered successfully",
     });
   });
 };
 
-// LOGIN
+// ================= LOGIN =================
 exports.login = (req, res) => {
   const { email, password } = req.body;
 
   const sql = "SELECT * FROM users WHERE email = ?";
 
   db.query(sql, [email], (err, results) => {
-    if (err) return res.json({ error: err });
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
 
     if (results.length === 0) {
-      return res.json({ message: "User not found" });
+      return res.json({
+        message: "User not found",
+      });
     }
 
     const user = results[0];
@@ -53,19 +77,26 @@ exports.login = (req, res) => {
     const isMatch = bcrypt.compareSync(password, user.password);
 
     if (!isMatch) {
-      return res.json({ message: "Wrong password" });
+      return res.json({
+        message: "Wrong password",
+      });
     }
 
-const token = jwt.sign(
-  { id: user.id, role: user.role },
-  process.env.JWT_SECRET,
-  { expiresIn: "1d" }
-);
+    const token = jwt.sign(
+      {
+        id: user.id,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
 
     res.json({
       message: "Login successful",
       token,
-      user
+      user,
     });
   });
 };
