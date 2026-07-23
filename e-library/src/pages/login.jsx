@@ -10,23 +10,36 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Login button clicked");
+
     try {
-      const res = await login({ email, password });
+      const res = await login({
+        email,
+        password,
+      });
 
-      // ✅ SAVE TOKEN TO LOCALSTORAGE
+      console.log("FULL RESPONSE:", res.data);
+      console.log("USER:", res.data.user);
+      console.log("ROLE:", res.data.user.role);
+
       localStorage.setItem("token", res.data.token);
-
-      // Optional: save user info too
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      // Redirect based on role
       if (res.data.user.role === "admin") {
-        navigate("/admin/dashboard");
+        console.log("ADMIN LOGIN");
+        navigate("/admin/dashboard", { replace: true });
       } else {
-        navigate("/dashboard");
+        console.log("USER LOGIN");
+        navigate("/user/dashboard", { replace: true });
       }
     } catch (err) {
-      console.error("Login error:", err);
+      console.error("LOGIN ERROR:", err);
+
+      if (err.response) {
+        console.log("Status:", err.response.status);
+        console.log("Data:", err.response.data);
+      }
+
       alert(err.response?.data?.message || "Login failed");
     }
   };

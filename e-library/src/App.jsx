@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import ReadingHistory from "./pages/ReadingHistory";
 import Payments from "./pages/Payments";
+import Payment from "./pages/Payment";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 // Route Protection
 import AdminRoute from "./components/AdminRoute";
@@ -121,6 +123,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+  path="/payment/success"
+  element={
+    <ProtectedRoute>
+      <PaymentSuccess />
+    </ProtectedRoute>
+  }
+/>
 
         <Route
           path="/user/books"
@@ -148,6 +158,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+           <Route
+  path="/user/payment"
+  element={
+    <ProtectedRoute>
+      <Payment />
+    </ProtectedRoute>
+  }
+/>
 
         <Route
           path="/user/profile"
