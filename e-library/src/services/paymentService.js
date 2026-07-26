@@ -21,7 +21,7 @@ export const initiatePayment = async () => {
   const res = await axios.post(
     `${API}/initiate`,
     {
-      amount: 5000, // Rs. 50 in paisa
+      amount: 2000, // Rs. 20 in paisa
       purchase_order_id: `ORDER_${Date.now()}`,
       purchase_order_name: "Premium Membership",
     },

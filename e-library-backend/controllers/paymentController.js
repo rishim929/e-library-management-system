@@ -1,5 +1,6 @@
 const db = require("../config/db");
 const axios = require("axios");
+const { sendSubscriptionEmail } = require("../services/mailService");
 
 // ================= ADMIN PAYMENT HISTORY =================
 exports.getAllPayments = (req, res) => {
@@ -170,6 +171,19 @@ exports.verifyPayment = async (req, res) => {
               [userId],
               (err3) => {
                 if (err3) return res.status(500).json(err3);
+
+                // Send Subscription Confirmation Email
+                db.query("SELECT name, email FROM users WHERE id = ?", [userId], async (userErr, userResults) => {
+                  if (!userErr && userResults.length > 0) {
+                    const { name, email } = userResults[0];
+                    try {
+                      await sendSubscriptionEmail(name, email, "Premium Plan", payment.total_amount / 100);
+                      console.log("Subscription confirmation email sent to:", email);
+                    } catch (mailErr) {
+                      console.log("Subscription email error:", mailErr);
+                    }
+                  }
+                });
 
                 res.json({
                   success: true,

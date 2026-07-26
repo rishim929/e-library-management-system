@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../services/authService";
 
 function Login() {
@@ -50,12 +50,12 @@ function Login() {
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded shadow-md w-96"
       >
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center text-green-700">Login</h2>
 
         <input
           type="email"
           placeholder="Email"
-          className="w-full p-2 mb-3 border rounded"
+          className="w-full p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -64,18 +64,31 @@ function Login() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-2 mb-1 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
+        <div className="flex justify-end mb-4">
+          <Link to="/forgot-password" className="text-sm text-green-700 hover:underline">
+            Forgot Password?
+          </Link>
+        </div>
+
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          className="w-full bg-green-700 text-white p-2 rounded hover:bg-green-800 transition-colors font-medium"
         >
           Login
         </button>
+
+        <p className="text-center mt-4 text-sm text-gray-600">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-green-700 font-semibold hover:underline">
+            Register
+          </Link>
+        </p>
       </form>
     </div>
   );

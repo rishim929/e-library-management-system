@@ -33,7 +33,7 @@ function Payment() {
         </p>
 
         <h2 className="text-2xl font-bold text-green-700 mb-6">
-          Rs. 50 
+          Rs. 20 
         </h2>
 
         <button

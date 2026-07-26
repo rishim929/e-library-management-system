@@ -16,9 +16,10 @@ destination: (req, file, cb) => {
   cb(null, uploadPath);
 },
 
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
+filename: (req, file, cb) => {
+  const ext = path.extname(file.originalname);
+  cb(null, Date.now() + ext);
+},
 });
 
 const fileFilter = (req, file, cb) => {
