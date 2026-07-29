@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getPayments } from "../services/paymentService";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../Layouts/Adminlayouts";
 
 function Payments() {
   const [payments, setPayments] = useState([]);
@@ -45,7 +45,7 @@ function Payments() {
                 <td>Rs. {payment.amount}</td>
                 <td>{payment.payment_method}</td>
                 <td>{payment.transaction_id}</td>
-<td>{new Date(payment.created_at).toLocaleString()}</td>
+                <td>{new Date(payment.created_at).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import UserLayout from "../layouts/UserLayout";
+import UserLayout from "../Layouts/Userlayouts";
 import {
   getMyProfile,
   updateMyProfile,

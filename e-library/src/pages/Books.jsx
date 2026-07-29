@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../Layouts/Adminlayouts";
 import {
   getBooks,
   addBook,
@@ -253,98 +253,98 @@ function Books() {
                   <td>{b.author}</td>
                   <td>{b.category_name}</td>
                   <td>{b.membership_level}</td>
-<td>
-  <div className="flex gap-2 justify-center">
-    <button
-      onClick={() => handleEdit(b)}
-      className="bg-blue-600 text-white px-3 py-1 rounded"
-    >
-      Edit
-    </button>
+                  <td>
+                    <div className="flex gap-2 justify-center">
+                      <button
+                        onClick={() => handleEdit(b)}
+                        className="bg-blue-600 text-white px-3 py-1 rounded"
+                      >
+                        Edit
+                      </button>
 
-    <button
-      onClick={() => handleDelete(b.id)}
-      className="bg-red-600 text-white px-3 py-1 rounded"
-    >
-      Delete
-    </button>
+                      <button
+                        onClick={() => handleDelete(b.id)}
+                        className="bg-red-600 text-white px-3 py-1 rounded"
+                      >
+                        Delete
+                      </button>
 
-    <button
-      onClick={() => setPreviewBook(b)}
-      className="bg-green-600 text-white px-3 py-1 rounded"
-    >
-      View
-    </button>
-  </div>
-</td>
+                      <button
+                        onClick={() => setPreviewBook(b)}
+                        className="bg-green-600 text-white px-3 py-1 rounded"
+                      >
+                        View
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
           </tbody>
         </table>
       </div>
       {previewBook && (
-  <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-    
-    <div className="bg-white w-[90%] md:w-[70%] h-[90%] rounded-xl p-6 overflow-auto relative">
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
 
-      {/* CLOSE BUTTON */}
-      <button
-        onClick={() => setPreviewBook(null)}
-        className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded"
-      >
-        Close
-      </button>
+          <div className="bg-white w-[90%] md:w-[70%] h-[90%] rounded-xl p-6 overflow-auto relative">
 
-      {/* BOOK INFO */}
-      <div className="grid md:grid-cols-2 gap-6">
+            {/* CLOSE BUTTON */}
+            <button
+              onClick={() => setPreviewBook(null)}
+              className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded"
+            >
+              Close
+            </button>
 
-        {/* COVER */}
-        <div className="flex justify-center">
-<img
-  src={
-    previewBook.cover_image
-      ? `http://localhost:5000/uploads/covers/${previewBook.cover_image}`
-      : "https://via.placeholder.com/200"
-  }
-  alt="cover"
-  className="h-80 object-cover rounded shadow"
-/>
+            {/* BOOK INFO */}
+            <div className="grid md:grid-cols-2 gap-6">
+
+              {/* COVER */}
+              <div className="flex justify-center">
+                <img
+                  src={
+                    previewBook.cover_image
+                      ? `http://localhost:5000/uploads/covers/${previewBook.cover_image}`
+                      : "https://via.placeholder.com/200"
+                  }
+                  alt="cover"
+                  className="h-80 object-cover rounded shadow"
+                />
+              </div>
+
+              {/* DETAILS */}
+              <div>
+                <h2 className="text-2xl font-bold mb-2">
+                  {previewBook.title}
+                </h2>
+
+                <p className="text-gray-600 mb-2">
+                  <b>Author:</b> {previewBook.author}
+                </p>
+
+                <p className="text-gray-600 mb-2">
+                  <b>Category:</b> {previewBook.category_name}
+                </p>
+
+                <p className="text-gray-600 mb-4">
+                  <b>Level:</b> {previewBook.membership_level}
+                </p>
+
+                {/* PDF OPEN BUTTON */}
+                {previewBook.pdf_file && (
+                  <a
+                    href={`http://localhost:5000/uploads/pdfs/${previewBook.pdf_file}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="bg-green-700 text-white px-4 py-2 rounded"
+                  >
+                    Open PDF 📖
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* DETAILS */}
-        <div>
-          <h2 className="text-2xl font-bold mb-2">
-            {previewBook.title}
-          </h2>
-
-          <p className="text-gray-600 mb-2">
-            <b>Author:</b> {previewBook.author}
-          </p>
-
-          <p className="text-gray-600 mb-2">
-            <b>Category:</b> {previewBook.category_name}
-          </p>
-
-          <p className="text-gray-600 mb-4">
-            <b>Level:</b> {previewBook.membership_level}
-          </p>
-
-          {/* PDF OPEN BUTTON */}
-{previewBook.pdf_file && (
-  <a
-    href={`http://localhost:5000/uploads/pdfs/${previewBook.pdf_file}`}
-    target="_blank"
-    rel="noreferrer"
-    className="bg-green-700 text-white px-4 py-2 rounded"
-  >
-    Open PDF 📖
-  </a>
-)}
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+      )}
     </AdminLayout>
   );
 }

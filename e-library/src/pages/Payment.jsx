@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UserLayout from "../layouts/UserLayout";
+import UserLayout from "../Layouts/Userlayouts";
 import { initiatePayment } from "../services/paymentService";
 
 function Payment() {
@@ -33,7 +33,7 @@ function Payment() {
         </p>
 
         <h2 className="text-2xl font-bold text-green-700 mb-6">
-          Rs. 20 
+          Rs. 20
         </h2>
 
         <button

@@ -1,4 +1,4 @@
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../Layouts/Adminlayouts";
 
 function Reports() {
   return (

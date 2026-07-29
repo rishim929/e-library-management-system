@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UserLayout from "../layouts/UserLayout";
+import UserLayout from "../Layouts/Userlayouts";
 import { upgradeSubscription } from "../services/subscriptionService";
 
 function MySubscription() {
@@ -76,9 +76,9 @@ function MySubscription() {
         ) : (
           <>
             <button
-             onClick={() => {
-  window.location.href = "/user/payment";
-}}
+              onClick={() => {
+                window.location.href = "/user/payment";
+              }}
               disabled={loading}
               className="w-full bg-blue-700 text-white py-3 rounded hover:bg-blue-800"
             >
