@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/dashboard";
-
+import { API_BASE_URL } from "../config";
+const API = `${API_BASE_URL}/api/books`;
 // Books
 export const getBookCount = () =>
   axios.get(`${API}/books`);

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getBooks } from "../services/bookService";
 import PdfPreview from "../components/PdfPreview";
+import { API_BASE_URL } from "../config";
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -123,7 +124,7 @@ function Home() {
 
                   {book.cover_image ? (
                     <img
-                      src={`http://localhost:5000/uploads/covers/${book.cover_image}`}
+                      src={`${API_BASE_URL}/uploads/covers/${book.cover_image}`}
                       alt={book.title}
                       className="w-full h-full object-cover"
                     />
@@ -283,7 +284,7 @@ Welcome to our E-Library, a digital space built for curious minds and passionate
             </h2>
 
 <PdfPreview
-  pdfUrl={`http://localhost:5000/uploads/pdfs/${previewBook.pdf_file}`}
+  pdfUrl={`${API_BASE_URL}/uploads/pdfs/${previewBook.pdf_file}`}
   isPremium={previewBook.membership_level === "premium"}
   hasSubscription={false}
 />

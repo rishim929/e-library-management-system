@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../config";
 import AdminLayout from "../Layouts/Adminlayouts";
 import {
   getBooks,
@@ -303,7 +304,7 @@ function Books() {
                 <img
                   src={
                     previewBook.cover_image
-                      ? `http://localhost:5000/uploads/covers/${previewBook.cover_image}`
+                      ? `${API_BASE_URL}/uploads/covers/${previewBook.cover_image}`
                       : "https://via.placeholder.com/200"
                   }
                   alt="cover"
@@ -332,7 +333,7 @@ function Books() {
                 {/* PDF OPEN BUTTON */}
                 {previewBook.pdf_file && (
                   <a
-                    href={`http://localhost:5000/uploads/pdfs/${previewBook.pdf_file}`}
+                    href={`${API_BASE_URL}/uploads/pdfs/${previewBook.pdf_file}`}
                     target="_blank"
                     rel="noreferrer"
                     className="bg-green-700 text-white px-4 py-2 rounded"

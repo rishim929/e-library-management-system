@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import UserLayout from "../Layouts/Userlayouts";
 import { getCategories } from "../services/categoryService";
 import { getBooks } from "../services/bookService";
+import { API_BASE_URL } from "../config";
 
 function UserCategories() {
   const [categories, setCategories] = useState([]);
@@ -98,7 +99,7 @@ function UserCategories() {
                   <img
                     src={
                       book.cover_image
-                        ? `http://localhost:5000/uploads/covers/${book.cover_image}`
+                        ? `${API_BASE_URL}/uploads/covers/${book.cover_image}`
                         : "https://via.placeholder.com/300x400"
                     }
                     alt={book.title}
@@ -144,7 +145,7 @@ function UserCategories() {
                       </>
                     ) : book.pdf_file ? (
                       <a
-                        href={`http://localhost:5000/uploads/pdfs/${book.pdf_file}`}
+                        href={`${API_BASE_URL}/uploads/pdfs/${book.pdf_file}`}
                         target="_blank"
                         rel="noreferrer"
                         className="block mt-4 bg-green-700 text-white text-center py-2 rounded hover:bg-green-800"

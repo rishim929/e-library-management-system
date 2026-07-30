@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import UserLayout from "../Layouts/Userlayouts";
 import { getReadingHistory } from "../services/readingHistoryService";
+import { API_BASE_URL } from "../config";
 
 function ReadingHistory() {
   const [history, setHistory] = useState([]);
@@ -44,7 +45,7 @@ function ReadingHistory() {
               <img
                 src={
                   item.cover_image
-                    ? `http://localhost:5000/uploads/covers/${item.cover_image}`
+                    ? `${API_BASE_URL}/uploads/covers/${item.cover_image}`
                     : "https://via.placeholder.com/300x400"
                 }
                 alt={item.title}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import UserLayout from "../Layouts/Userlayouts";
 import { getBooks } from "../services/bookService";
+import { API_BASE_URL } from "../config";
 
 function UserBooks() {
   const [books, setBooks] = useState([]);
@@ -83,7 +84,7 @@ function UserBooks() {
               <img
                 src={
                   book.cover_image
-                    ? `http://localhost:5000/uploads/covers/${book.cover_image}`
+                    ? `${API_BASE_URL}/uploads/covers/${book.cover_image}`
                     : "https://via.placeholder.com/300x400?text=No+Cover"
                 }
                 alt={book.title}
@@ -130,7 +131,7 @@ function UserBooks() {
                   </>
                 ) : book.pdf_file ? (
                   <a
-                    href={`http://localhost:5000/uploads/pdfs/${book.pdf_file}`}
+                    href={`${API_BASE_URL}/uploads/pdfs/${book.pdf_file}`}
                     target="_blank"
                     rel="noreferrer"
                     className="block text-center mt-5 bg-blue-700 text-white py-2 rounded hover:bg-blue-800"

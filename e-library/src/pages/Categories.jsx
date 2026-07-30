@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "../Layouts/Adminlayouts";
-import {
+import AdminLayout from "../layouts/AdminLayout"; import {
   getCategories,
   addCategory,
   updateCategory,

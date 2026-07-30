@@ -2,6 +2,7 @@ import UserLayout from "../Layouts/Userlayouts";
 import { useEffect, useState } from "react";
 import { getBooks } from "../services/bookService";
 import { saveReadingHistory } from "../services/readingHistoryService";
+import { API_BASE_URL } from "../config";
 
 function UserDashboard() {
   const [books, setBooks] = useState([]);
@@ -53,7 +54,7 @@ function UserDashboard() {
               <img
                 src={
                   book.cover_image
-                    ? `http://localhost:5000/uploads/covers/${book.cover_image}`
+                    ? `${API_BASE_URL}/uploads/covers/${book.cover_image}`
                     : "https://via.placeholder.com/300x400"
                 }
                 alt={book.title}
@@ -110,7 +111,7 @@ function UserDashboard() {
                         });
 
                         window.open(
-                          `http://localhost:5000/uploads/pdfs/${book.pdf_file}`,
+                          `${API_BASE_URL}/uploads/pdfs/${book.pdf_file}`,
                           "_blank"
                         );
                       } catch (err) {
