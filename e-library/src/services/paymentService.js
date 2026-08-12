@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { API_BASE_URL } from "../config";
-const API = `${API_BASE_URL}/api/payment`;
+const API = `${API_BASE_URL}/api/payments`;
 const getConfig = () => ({
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
