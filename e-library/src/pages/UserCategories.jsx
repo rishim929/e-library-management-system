@@ -149,12 +149,12 @@ function UserCategories() {
                       <>
                         <button
                           onClick={() => handleOpenBook(book)}
-                          className="w-full mt-4 bg-amber-600 text-white py-2 rounded font-semibold hover:bg-amber-700 transition"
+                          className="w-full mt-4 bg-green-700 text-white py-2 rounded hover:bg-green-800 transition"
                         >
-                          👁️ Preview Book
+                          Preview Book
                         </button>
 
-                        <p className="text-amber-700 text-xs text-center mt-2 font-medium">
+                        <p className="text-gray-600 text-xs text-center mt-2 font-medium">
                           Free Preview (First 5 Pages) • Upgrade to read full book
                         </p>
                       </>
