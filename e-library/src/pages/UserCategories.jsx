@@ -145,7 +145,7 @@ function UserCategories() {
                     </p>
 
                     {book.membership_level === "premium" &&
-                    user?.membership_type !== "premium" ? (
+                      user?.membership_type !== "premium" ? (
                       <>
                         <button
                           onClick={() => handleOpenBook(book)}
@@ -163,7 +163,7 @@ function UserCategories() {
                         onClick={() => handleOpenBook(book)}
                         className="w-full mt-4 bg-green-700 text-white py-2 rounded hover:bg-green-800 transition"
                       >
-                        📖 Read Book
+                        Read Book
                       </button>
                     ) : (
                       <button
