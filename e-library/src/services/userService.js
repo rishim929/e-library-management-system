@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config";
 
-const API = `${API_BASE_URL}/api/user`;
+const API = `${API_BASE_URL}/api/users`;
 
 const getConfig = () => ({
   headers: {
