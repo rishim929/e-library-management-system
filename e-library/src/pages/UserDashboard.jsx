@@ -120,7 +120,7 @@ function UserDashboard() {
                     onClick={() => handleOpenBook(book)}
                     className="w-full mt-5 bg-green-700 text-white py-2 rounded hover:bg-green-800 transition"
                   >
-                    📖 Read Book
+                    Read Book
                   </button>
                 ) : (
                   <button
