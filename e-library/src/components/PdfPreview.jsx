@@ -29,6 +29,9 @@ const pagesToShow =
     ? Math.min(5, numPages || 0)
     : numPages;
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const upgradeHref = user ? "/user/subscription" : "/register";
+
   return (
     <div className="flex flex-col items-center">
 
@@ -36,7 +39,7 @@ const pagesToShow =
         file={pdfUrl}
         onLoadSuccess={onDocumentLoadSuccess}
         onLoadError={onDocumentLoadError}
-        loading={<p>Loading PDF...</p>}
+        loading={<p className="text-gray-500 py-8">Loading PDF document...</p>}
       >
         {numPages &&
           Array.from(new Array(pagesToShow), (_, index) => (
@@ -48,19 +51,21 @@ const pagesToShow =
           ))}
       </Document>
 
-{isPremium && !hasSubscription && numPages > 5 && (
-  <div className="mt-10 bg-yellow-100 border p-6 rounded-lg text-center">
+      {isPremium && !hasSubscription && (
+        <div className="mt-10 bg-amber-50 border border-amber-300 p-6 rounded-xl text-center shadow-sm max-w-md w-full">
           <h2 className="text-2xl font-bold text-red-600">
-            Preview Ended
+            {numPages > 5 ? "Preview Ended" : "End of Preview"}
           </h2>
 
-          <p className="mt-2">
-            You can read only the first 5 pages.
+          <p className="mt-2 text-gray-700">
+            {numPages > 5
+              ? "You can read only the first 5 pages. Upgrade your subscription to access the full book."
+              : "This is a premium book preview. Upgrade your subscription for full access."}
           </p>
 
           <a
-            href="/register"
-            className="inline-block mt-5 bg-green-700 text-white px-6 py-3 rounded-lg"
+            href={upgradeHref}
+            className="inline-block mt-5 bg-green-700 hover:bg-green-800 text-white font-semibold px-6 py-3 rounded-lg transition"
           >
             Upgrade to Premium
           </a>

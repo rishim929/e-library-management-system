@@ -195,7 +195,7 @@ function Home() {
 
               <ul className="mt-8 space-y-4">
                 <li>✔ Browse Books</li>
-                <li>✔ Read Preview (First 3 Pages)</li>
+                <li>✔ Read Preview (First 5 Pages)</li>
                 <li>✔ Community Access</li>
               </ul>
             </div>
@@ -286,7 +286,7 @@ Welcome to our E-Library, a digital space built for curious minds and passionate
 <PdfPreview
   pdfUrl={`${API_BASE_URL}/uploads/pdfs/${previewBook.pdf_file}`}
   isPremium={previewBook.membership_level === "premium"}
-  hasSubscription={false}
+  hasSubscription={JSON.parse(localStorage.getItem("user"))?.membership_type === "premium"}
 />
 
           </div>

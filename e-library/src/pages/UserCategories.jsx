@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import UserLayout from "../Layouts/Userlayouts";
 import { getCategories } from "../services/categoryService";
 import { getBooks } from "../services/bookService";
+import { saveReadingHistory } from "../services/readingHistoryService";
+import PdfPreview from "../components/PdfPreview";
 import { API_BASE_URL } from "../config";
 
 function UserCategories() {
   const [categories, setCategories] = useState([]);
   const [books, setBooks] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [previewBook, setPreviewBook] = useState(null);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -32,6 +35,18 @@ function UserCategories() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleOpenBook = async (book) => {
+    try {
+      await saveReadingHistory({
+        book_id: book.id,
+        last_page: 1,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    setPreviewBook(book);
   };
 
   return (
@@ -130,32 +145,30 @@ function UserCategories() {
                     </p>
 
                     {book.membership_level === "premium" &&
-                      user?.membership_type !== "premium" ? (
+                    user?.membership_type !== "premium" ? (
                       <>
                         <button
-                          disabled
-                          className="w-full mt-4 bg-gray-500 text-white py-2 rounded cursor-not-allowed"
+                          onClick={() => handleOpenBook(book)}
+                          className="w-full mt-4 bg-amber-600 text-white py-2 rounded font-semibold hover:bg-amber-700 transition"
                         >
-                          🔒 Premium Book
+                          👁️ Preview Book
                         </button>
 
-                        <p className="text-red-500 text-sm mt-2 text-center">
-                          Upgrade your membership to read this book.
+                        <p className="text-amber-700 text-xs text-center mt-2 font-medium">
+                          Free Preview (First 5 Pages) • Upgrade to read full book
                         </p>
                       </>
                     ) : book.pdf_file ? (
-                      <a
-                        href={`${API_BASE_URL}/uploads/pdfs/${book.pdf_file}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="block mt-4 bg-green-700 text-white text-center py-2 rounded hover:bg-green-800"
+                      <button
+                        onClick={() => handleOpenBook(book)}
+                        className="w-full mt-4 bg-green-700 text-white py-2 rounded hover:bg-green-800 transition"
                       >
                         📖 Read Book
-                      </a>
+                      </button>
                     ) : (
                       <button
                         disabled
-                        className="w-full mt-4 bg-gray-400 text-white py-2 rounded"
+                        className="w-full mt-4 bg-gray-400 text-white py-2 rounded cursor-not-allowed"
                       >
                         PDF Not Available
                       </button>
@@ -165,6 +178,47 @@ function UserCategories() {
               ))}
           </div>
         </>
+      )}
+
+      {/* ================= PDF PREVIEW / READER MODAL ================= */}
+      {previewBook && (
+        <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50 p-4">
+          <div className="bg-white w-[90%] h-[90%] rounded-xl p-6 overflow-auto relative">
+            <div className="flex justify-between items-center mb-6 pr-16">
+              <div>
+                <h2 className="text-2xl font-bold">
+                  {previewBook.title}
+                </h2>
+                <p className="text-gray-600 text-sm">
+                  By {previewBook.author} • {previewBook.membership_level === "premium" ? "Premium Book" : "Basic Book"}
+                </p>
+              </div>
+              {previewBook.pdf_file && (user?.membership_type === "premium" || previewBook.membership_level !== "premium") && (
+                <a
+                  href={`${API_BASE_URL}/uploads/pdfs/${previewBook.pdf_file}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
+                >
+                  Open Original PDF ↗
+                </a>
+              )}
+            </div>
+
+            <button
+              onClick={() => setPreviewBook(null)}
+              className="absolute right-6 top-6 bg-red-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700"
+            >
+              Close
+            </button>
+
+            <PdfPreview
+              pdfUrl={`${API_BASE_URL}/uploads/pdfs/${previewBook.pdf_file}`}
+              isPremium={previewBook.membership_level === "premium"}
+              hasSubscription={user?.membership_type === "premium"}
+            />
+          </div>
+        </div>
       )}
     </UserLayout>
   );
