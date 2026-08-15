@@ -1,0 +1,9 @@
+{
+  "appId": "com.elibrary.app",
+  "appName": "E-Library Management System",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  }
+}

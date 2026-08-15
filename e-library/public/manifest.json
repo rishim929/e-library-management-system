@@ -1,0 +1,17 @@
+{
+  "short_name": "E-Library App",
+  "name": "E-Library Management System App",
+  "description": "Complete E-Library Management Mobile Application for reading books, managing subscriptions, and tracking reading history.",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512 192x192 64x64 32x32 24x24 16x16"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0f172a",
+  "theme_color": "#4f46e5",
+  "display": "standalone",
+  "orientation": "portrait"
+}
