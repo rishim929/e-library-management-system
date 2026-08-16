@@ -76,11 +76,9 @@ input::placeholder, select::placeholder, textarea::placeholder {
   display: flex !important;
 }
 
-.app-box-container .grid-cols-5,
-.app-box-container .grid-cols-4,
-.app-box-container .grid-cols-3,
-.app-box-container .grid-cols-2 {
-  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+/* 2-column grid override for stat cards inside 380px phone app box */
+.app-box-container .stat-cards-container {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 }
 
 .app-box-container .max-w-sm,

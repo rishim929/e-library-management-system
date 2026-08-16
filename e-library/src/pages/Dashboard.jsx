@@ -71,8 +71,8 @@ function Dashboard() {
         </button>
       </div>
 
-      {/* Top 5 Statistics Cards Grid - CLEAN RESPONSIVE ALIGNMENT */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-8">
+      {/* Top 5 Statistics Cards Grid - CENTERED 5-CARD RESPONSIVE LAYOUT */}
+      <div className="stat-cards-container grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6 mb-8">
         <StatCard title="Total Books" value={books} icon="📚" color="text-indigo-600" />
         <StatCard title="Categories" value={categories} icon="📂" color="text-amber-600" />
         <StatCard title="Total Users" value={users} icon="👥" color="text-emerald-600" />
