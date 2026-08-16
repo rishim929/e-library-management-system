@@ -33,17 +33,54 @@ input::placeholder, select::placeholder, textarea::placeholder {
   opacity: 1 !important;
 }
 
-/* Force 1-column layout and 320px wide book cards inside phone box container */
-.app-box-container .grid {
-  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+/* Complete containment inside Smartphone App Box container */
+.app-box-container {
+  position: relative !important;
+  contain: layout paint !important;
+  overflow-x: hidden !important;
 }
 
+.app-box-container .fixed {
+  position: absolute !important;
+}
+
+.app-box-container .md\:translate-x-0 {
+  transform: translateX(-100%) !important;
+}
+
+.app-box-container .translate-x-0 {
+  transform: translateX(0) !important;
+}
+
+.app-box-container .md\:ml-64,
+.app-box-container .ml-64 {
+  margin-left: 0 !important;
+}
+
+.app-box-container .w-64 {
+  max-width: 80% !important;
+}
+
+.app-box-container button.md\:hidden,
+.app-box-container div.md\:hidden {
+  display: flex !important;
+}
+
+.app-box-container nav .hidden.md\:flex,
 .app-box-container nav .hidden.lg\:flex {
   display: none !important;
 }
 
+.app-box-container nav .md\:hidden,
 .app-box-container nav .lg\:hidden {
   display: flex !important;
+}
+
+.app-box-container .grid-cols-5,
+.app-box-container .grid-cols-4,
+.app-box-container .grid-cols-3,
+.app-box-container .grid-cols-2 {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
 }
 
 .app-box-container .max-w-sm,
