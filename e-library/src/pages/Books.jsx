@@ -114,28 +114,30 @@ function Books() {
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-bold mb-6">Book Management</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-white">Book Management</h1>
 
       {/* FORM */}
-      <div className="bg-white p-6 rounded-xl shadow mb-8">
-        <div className="grid grid-cols-2 gap-4">
-
+      <div className="bg-slate-800 border border-slate-700 p-4 sm:p-6 rounded-2xl shadow-xl mb-8">
+        <h2 className="text-lg font-bold text-white mb-4">
+          {editingId ? "Edit Book" : "Add New Book"}
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <input
-            className="border p-3 rounded"
+            className="bg-slate-900 border border-slate-700 text-white p-3 rounded-xl text-sm"
             placeholder="Book Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
 
           <input
-            className="border p-3 rounded"
+            className="bg-slate-900 border border-slate-700 text-white p-3 rounded-xl text-sm"
             placeholder="Author"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
 
           <select
-            className="border p-3 rounded"
+            className="bg-slate-900 border border-slate-700 text-white p-3 rounded-xl text-sm"
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
           >
@@ -148,31 +150,37 @@ function Books() {
           </select>
 
           <select
-            className="border p-3 rounded"
+            className="bg-slate-900 border border-slate-700 text-white p-3 rounded-xl text-sm"
             value={membershipLevel}
             onChange={(e) => setMembershipLevel(e.target.value)}
           >
-            <option value="basic">Basic</option>
-            <option value="premium">Premium</option>
+            <option value="basic">Basic (Free)</option>
+            <option value="premium">Premium Only</option>
           </select>
 
-          <input
-            type="file"
-            className="border p-3 rounded"
-            onChange={(e) => setPdf(e.target.files[0])}
-          />
+          <div>
+            <label className="text-xs text-slate-400 block mb-1">PDF File</label>
+            <input
+              type="file"
+              className="bg-slate-900 border border-slate-700 text-slate-300 p-2 rounded-xl text-xs w-full"
+              onChange={(e) => setPdf(e.target.files[0])}
+            />
+          </div>
 
-          <input
-            type="file"
-            className="border p-3 rounded"
-            onChange={(e) => setCover(e.target.files[0])}
-          />
+          <div>
+            <label className="text-xs text-slate-400 block mb-1">Cover Image</label>
+            <input
+              type="file"
+              className="bg-slate-900 border border-slate-700 text-slate-300 p-2 rounded-xl text-xs w-full"
+              onChange={(e) => setCover(e.target.files[0])}
+            />
+          </div>
         </div>
 
-        <div className="mt-4 flex gap-3">
+        <div className="mt-5 flex gap-3">
           <button
             onClick={handleSubmit}
-            className="bg-green-700 text-white px-6 py-2 rounded"
+            className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-semibold text-sm transition"
           >
             {editingId ? "Update Book" : "Add Book"}
           </button>
@@ -180,7 +188,7 @@ function Books() {
           {editingId && (
             <button
               onClick={clearForm}
-              className="bg-gray-500 text-white px-6 py-2 rounded"
+              className="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2.5 rounded-xl text-sm transition"
             >
               Cancel
             </button>
@@ -188,19 +196,18 @@ function Books() {
         </div>
       </div>
 
-      {/* 🔍 FILTER SECTION (NEW) */}
-      <div className="bg-white p-4 rounded-xl shadow mb-6">
-        <div className="grid grid-cols-3 gap-4">
-
+      {/* FILTER SECTION */}
+      <div className="bg-slate-800 border border-slate-700 p-4 rounded-2xl shadow-xl mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <input
-            className="border p-3 rounded"
+            className="bg-slate-900 border border-slate-700 text-white p-3 rounded-xl text-sm"
             placeholder="🔍 Search by title..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
 
           <select
-            className="border p-3 rounded"
+            className="bg-slate-900 border border-slate-700 text-white p-3 rounded-xl text-sm"
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
           >
@@ -213,30 +220,29 @@ function Books() {
           </select>
 
           <input
-            className="border p-3 rounded"
+            className="bg-slate-900 border border-slate-700 text-white p-3 rounded-xl text-sm"
             placeholder="Filter by author..."
             value={filterAuthor}
             onChange={(e) => setFilterAuthor(e.target.value)}
           />
-
         </div>
       </div>
 
       {/* TABLE */}
-      <div className="bg-white rounded-xl shadow overflow-x-auto">
-        <table className="w-full text-center">
-          <thead className="bg-green-700 text-white">
+      <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl overflow-x-auto">
+        <table className="w-full text-left text-sm text-slate-300 min-w-[600px]">
+          <thead className="bg-slate-900 text-slate-200 border-b border-slate-700 uppercase text-xs">
             <tr>
-              <th className="p-3">ID</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Category</th>
-              <th>Level</th>
-              <th>Actions</th>
+              <th className="p-3.5">ID</th>
+              <th className="p-3.5">Title</th>
+              <th className="p-3.5">Author</th>
+              <th className="p-3.5">Category</th>
+              <th className="p-3.5">Level</th>
+              <th className="p-3.5 text-center">Actions</th>
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="divide-y divide-slate-700/60">
             {books
               .filter((b) =>
                 b.title.toLowerCase().includes(search.toLowerCase())
@@ -248,31 +254,35 @@ function Books() {
                 b.author.toLowerCase().includes(filterAuthor.toLowerCase())
               )
               .map((b) => (
-                <tr key={b.id} className="border-b">
-                  <td className="p-3">{b.id}</td>
-                  <td>{b.title}</td>
-                  <td>{b.author}</td>
-                  <td>{b.category_name}</td>
-                  <td>{b.membership_level}</td>
-                  <td>
+                <tr key={b.id} className="hover:bg-slate-700/40 transition">
+                  <td className="p-3.5 font-bold text-white">{b.id}</td>
+                  <td className="p-3.5 font-semibold text-white">{b.title}</td>
+                  <td className="p-3.5">{b.author}</td>
+                  <td className="p-3.5">{b.category_name}</td>
+                  <td className="p-3.5">
+                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${b.membership_level === "premium" ? "bg-rose-500/20 text-rose-300 border border-rose-500/30" : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"}`}>
+                      {b.membership_level}
+                    </span>
+                  </td>
+                  <td className="p-3.5">
                     <div className="flex gap-2 justify-center">
                       <button
                         onClick={() => handleEdit(b)}
-                        className="bg-blue-600 text-white px-3 py-1 rounded"
+                        className="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded-lg text-xs"
                       >
                         Edit
                       </button>
 
                       <button
                         onClick={() => handleDelete(b.id)}
-                        className="bg-red-600 text-white px-3 py-1 rounded"
+                        className="bg-rose-600 hover:bg-rose-500 text-white px-3 py-1 rounded-lg text-xs"
                       >
                         Delete
                       </button>
 
                       <button
                         onClick={() => setPreviewBook(b)}
-                        className="bg-green-600 text-white px-3 py-1 rounded"
+                        className="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded-lg text-xs"
                       >
                         View
                       </button>
@@ -283,23 +293,18 @@ function Books() {
           </tbody>
         </table>
       </div>
+
       {previewBook && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-
-          <div className="bg-white w-[90%] md:w-[70%] h-[90%] rounded-xl p-6 overflow-auto relative">
-
-            {/* CLOSE BUTTON */}
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-slate-900 border border-slate-700 w-full max-w-2xl max-h-[90vh] rounded-2xl p-6 overflow-auto relative shadow-2xl">
             <button
               onClick={() => setPreviewBook(null)}
-              className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded"
+              className="absolute top-4 right-4 bg-rose-600 hover:bg-rose-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold"
             >
               Close
             </button>
 
-            {/* BOOK INFO */}
-            <div className="grid md:grid-cols-2 gap-6">
-
-              {/* COVER */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-2">
               <div className="flex justify-center">
                 <img
                   src={
@@ -308,35 +313,30 @@ function Books() {
                       : "https://via.placeholder.com/200"
                   }
                   alt="cover"
-                  className="h-80 object-cover rounded shadow"
+                  className="h-64 object-cover rounded-xl shadow-lg border border-slate-700"
                 />
               </div>
 
-              {/* DETAILS */}
               <div>
-                <h2 className="text-2xl font-bold mb-2">
+                <h2 className="text-xl font-bold text-white mb-2">
                   {previewBook.title}
                 </h2>
-
-                <p className="text-gray-600 mb-2">
+                <p className="text-slate-300 text-sm mb-2">
                   <b>Author:</b> {previewBook.author}
                 </p>
-
-                <p className="text-gray-600 mb-2">
+                <p className="text-slate-300 text-sm mb-2">
                   <b>Category:</b> {previewBook.category_name}
                 </p>
-
-                <p className="text-gray-600 mb-4">
+                <p className="text-slate-300 text-sm mb-4">
                   <b>Level:</b> {previewBook.membership_level}
                 </p>
 
-                {/* PDF OPEN BUTTON */}
                 {previewBook.pdf_file && (
                   <a
                     href={`${API_BASE_URL}/uploads/pdfs/${previewBook.pdf_file}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="bg-green-700 text-white px-4 py-2 rounded"
+                    className="inline-block bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow"
                   >
                     Open PDF 📖
                   </a>
