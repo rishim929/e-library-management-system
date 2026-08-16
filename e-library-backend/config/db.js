@@ -1,14 +1,20 @@
 const mysql = require("mysql2");
 require("dotenv").config();
 
-console.log("Attempting DB connection with host:", process.env.DB_HOST);
+const dbHost = process.env.DB_HOST || process.env.MYSQLHOST || "localhost";
+const dbUser = process.env.DB_USER || process.env.MYSQLUSER || "root";
+const dbPassword = process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || "";
+const dbName = process.env.DB_NAME || process.env.MYSQLDATABASE || "elibrary_db";
+const dbPort = process.env.DB_PORT || process.env.MYSQLPORT || 3306;
+
+console.log("Attempting DB connection with host:", dbHost, "port:", dbPort, "database:", dbName);
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 3306,
+  host: dbHost,
+  user: dbUser,
+  password: dbPassword,
+  database: dbName,
+  port: Number(dbPort),
   connectTimeout: 10000,
 });
 
@@ -16,7 +22,7 @@ db.connect((err) => {
   if (err) {
     console.log("DB connection failed:", err.message);
   } else {
-    console.log("MySQL Connected!");
+    console.log("MySQL Connected Successfully!");
   }
 });
 
