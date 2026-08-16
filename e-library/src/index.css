@@ -86,8 +86,9 @@ table tbody td {
   display: flex !important;
 }
 
-/* 2-column grid override for stat cards inside 380px phone app box */
-.app-box-container .stat-cards-container {
+/* 2-column grid override for stat cards & user categories inside 380px phone app box */
+.app-box-container .stat-cards-container,
+.app-box-container .user-categories-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 }
 
