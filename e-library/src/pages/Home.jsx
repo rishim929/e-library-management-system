@@ -239,7 +239,7 @@ function Home() {
         )}
       </section>
 
-      {/* Membership Plans Section (MOBILE-RESPONSIVE FIX) */}
+      {/* Membership Plans Section */}
       <section id="membership" className="bg-slate-950/80 border-y border-slate-800 py-12 sm:py-20 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10 sm:mb-14">
@@ -251,24 +251,24 @@ function Home() {
             </p>
           </div>
 
-          {/* Grid column fix: 1 column on mobile screens, 2 columns on desktop */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Basic Plan */}
-            <div className="bg-slate-800/90 border border-slate-700/80 p-6 sm:p-8 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div className="bg-slate-800/90 border border-slate-700/80 p-5 sm:p-8 rounded-2xl shadow-xl flex flex-col justify-between overflow-hidden relative">
               <div>
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-xl font-bold text-white">Basic Reader</h3>
-                  <span className="px-3 py-1 bg-slate-700 text-slate-300 text-xs font-bold uppercase rounded-full">
-                    Free
+                {/* Title + FREE Badge Inline Next to Title */}
+                <div className="flex items-center gap-2 flex-wrap mb-4">
+                  <h3 className="text-xl font-extrabold text-white">Basic Reader</h3>
+                  <span className="px-2.5 py-0.5 bg-slate-700/90 text-slate-200 text-[11px] font-bold uppercase rounded-md border border-slate-600 shadow-sm">
+                    FREE
                   </span>
                 </div>
 
-                <div className="my-6">
+                <div className="my-5">
                   <span className="text-4xl sm:text-5xl font-black text-white">FREE</span>
                   <span className="text-slate-400 text-xs block mt-1">Forever free access</span>
                 </div>
 
-                <ul className="space-y-3 text-sm text-slate-300 my-6 border-t border-slate-700/60 pt-6">
+                <ul className="space-y-3 text-sm text-slate-300 my-6 border-t border-slate-700/60 pt-5">
                   <li className="flex items-center gap-2.5">
                     <FaCheck className="text-emerald-400 text-xs flex-shrink-0" />
                     <span>Browse All Categories</span>
@@ -286,39 +286,41 @@ function Home() {
 
               <Link
                 to="/register"
-                className="w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 rounded-xl transition text-sm block mt-4"
+                className="w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 rounded-xl transition text-sm block mt-2"
               >
                 Sign Up Free
               </Link>
             </div>
 
             {/* Premium Plan */}
-            <div className="bg-gradient-to-b from-slate-800 to-indigo-950 border-2 border-indigo-500/80 p-6 sm:p-8 rounded-2xl shadow-2xl relative flex flex-col justify-between">
-              <span className="absolute -top-3 right-6 bg-indigo-500 text-white text-[11px] font-extrabold uppercase px-3 py-1 rounded-full shadow flex items-center gap-1">
+            <div className="bg-gradient-to-b from-slate-800 to-indigo-950 border-2 border-indigo-500/80 p-5 sm:p-8 rounded-2xl shadow-2xl relative flex flex-col justify-between overflow-hidden">
+              {/* Recommended Top Badge Inside Card */}
+              <span className="absolute top-3 right-3 sm:right-4 bg-indigo-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md shadow flex items-center gap-1">
                 <FaCrown className="text-xs" /> Recommended
               </span>
 
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-xl font-bold text-white">Premium VIP</h3>
-                  <span className="px-3 py-1 bg-indigo-500/30 text-indigo-300 text-xs font-bold uppercase rounded-full border border-indigo-400/30">
-                    Unlimited
+              <div className="pt-4 sm:pt-0">
+                {/* Title + UNLIMITED Badge Inline Next to Title */}
+                <div className="flex items-center gap-2 flex-wrap mb-4">
+                  <h3 className="text-xl font-extrabold text-white">Premium VIP</h3>
+                  <span className="px-2.5 py-0.5 bg-indigo-500/40 text-indigo-200 text-[11px] font-bold uppercase rounded-md border border-indigo-400/40 shadow-sm">
+                    UNLIMITED
                   </span>
                 </div>
 
-                <div className="my-6">
+                <div className="my-5">
                   <span className="text-4xl sm:text-5xl font-black text-white">Rs. 20</span>
                   <span className="text-indigo-300 text-xs block mt-1">Full 30 Days Access</span>
                 </div>
 
-                <ul className="space-y-3 text-sm text-slate-200 my-6 border-t border-indigo-500/30 pt-6">
+                <ul className="space-y-3 text-sm text-slate-200 my-6 border-t border-indigo-500/30 pt-5">
                   <li className="flex items-center gap-2.5">
                     <FaCheck className="text-indigo-400 text-xs flex-shrink-0" />
                     <span>Unlimited Full PDF Reading</span>
                   </li>
                   <li className="flex items-center gap-2.5">
                     <FaCheck className="text-indigo-400 text-xs flex-shrink-0" />
-                    <span>Access All Premium Exclusive Books</span>
+                    <span>Access Premium Exclusive Books</span>
                   </li>
                   <li className="flex items-center gap-2.5">
                     <FaCheck className="text-indigo-400 text-xs flex-shrink-0" />
@@ -333,7 +335,7 @@ function Home() {
 
               <Link
                 to="/register"
-                className="w-full text-center bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-600/40 transition text-sm block mt-4"
+                className="w-full text-center bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-600/40 transition text-sm block mt-2"
               >
                 Upgrade to Premium
               </Link>
