@@ -93,7 +93,8 @@ table tbody td {
 
 /* Force 1-column 320px wide balanced book cards inside phone app box container */
 .app-box-container .featured-books-grid,
-.app-box-container .user-books-grid {
+.app-box-container .user-books-grid,
+.app-box-container .user-history-grid {
   grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
 }
 
