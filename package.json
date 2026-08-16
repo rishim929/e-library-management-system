@@ -1,0 +1,9 @@
+{
+  "name": "e-library-management-system-root",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd e-library && npm install && npm run build",
+    "start": "cd e-library && npm run preview"
+  }
+}

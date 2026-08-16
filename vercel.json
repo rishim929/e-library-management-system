@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd e-library && npm install && npm run build",
+  "outputDirectory": "e-library/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
