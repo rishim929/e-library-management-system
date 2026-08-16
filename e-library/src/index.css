@@ -5,3 +5,22 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: #f5f7fa;
 }
+
+/* Force 1-column layout and 5x wider book cards inside phone box container */
+.app-box-container .grid {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+
+.app-box-container nav .hidden.lg\:flex {
+  display: none !important;
+}
+
+.app-box-container nav .lg\:hidden {
+  display: flex !important;
+}
+
+.app-box-container .max-w-sm,
+.app-box-container .max-w-\[340px\] {
+  max-width: 320px !important;
+  width: 100% !important;
+}

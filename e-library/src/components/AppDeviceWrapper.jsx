@@ -5,7 +5,6 @@ import {
   FaWifi,
   FaSignal,
   FaBatteryFull,
-  FaSyncAlt,
 } from "react-icons/fa";
 
 function AppDeviceWrapper({ children }) {
@@ -140,7 +139,7 @@ function AppDeviceWrapper({ children }) {
           </div>
 
           {/* Phone Screen App Viewport */}
-          <div className="flex-1 overflow-y-auto bg-slate-900 relative scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+          <div className="flex-1 overflow-y-auto bg-slate-900 relative scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent app-box-container">
             {children}
           </div>
 
