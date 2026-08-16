@@ -17,6 +17,11 @@ input::placeholder, select::placeholder, textarea::placeholder {
   opacity: 1 !important;
 }
 
+/* Explicit high-contrast table data cell text */
+table tbody td {
+  color: #1e293b !important; /* Dark slate 800 for high-contrast legible text */
+}
+
 /* Dark mode inputs override */
 .bg-slate-900 input,
 .bg-slate-800 input,
