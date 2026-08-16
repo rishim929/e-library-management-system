@@ -31,15 +31,15 @@ function Home() {
       {/* Navigation Header */}
       <nav className="bg-slate-800/95 backdrop-blur-md border-b border-slate-700/80 sticky top-0 z-40 px-4 sm:px-8 py-3.5 shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <span className="text-2xl">📚</span>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide">
-              E-Library <span className="text-indigo-400 text-xs sm:text-sm font-semibold uppercase px-2 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 ml-1">App</span>
+            <h1 className="text-lg sm:text-2xl font-extrabold text-white tracking-wide">
+              E-Library <span className="text-indigo-400 text-[10px] sm:text-xs font-semibold uppercase px-2 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 ml-1">App</span>
             </h1>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-8 font-medium text-sm text-slate-300">
+          {/* Desktop Nav Links (hidden on screens < 1024px) */}
+          <div className="hidden lg:flex items-center gap-8 font-medium text-sm text-slate-300">
             <a href="#home" className="hover:text-indigo-400 transition">Home</a>
             <a href="#books" className="hover:text-indigo-400 transition">Books</a>
             <a href="#membership" className="hover:text-indigo-400 transition">Membership</a>
@@ -47,7 +47,7 @@ function Home() {
             <a href="#contact" className="hover:text-indigo-400 transition">Contact</a>
           </div>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <Link
               to="/login"
               className="text-slate-300 hover:text-white px-4 py-2 text-sm font-semibold transition"
@@ -65,7 +65,7 @@ function Home() {
           {/* Mobile Hamburger Button */}
           <button
             onClick={() => setNavOpen(!navOpen)}
-            className="md:hidden text-slate-300 hover:text-white p-2 text-xl rounded-lg bg-slate-700/60"
+            className="lg:hidden text-slate-300 hover:text-white p-2 text-xl rounded-lg bg-slate-700/60"
             aria-label="Toggle menu"
           >
             {navOpen ? <FaTimes /> : <FaBars />}
@@ -74,7 +74,7 @@ function Home() {
 
         {/* Mobile Dropdown Menu */}
         {navOpen && (
-          <div className="md:hidden mt-3 pt-3 border-t border-slate-700/60 flex flex-col space-y-3 px-2 pb-2">
+          <div className="lg:hidden mt-3 pt-3 border-t border-slate-700/60 flex flex-col space-y-3 px-2 pb-2">
             <a
               href="#home"
               onClick={() => setNavOpen(false)}
@@ -133,18 +133,18 @@ function Home() {
       {/* Hero Section */}
       <section
         id="home"
-        className="relative bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-900 text-white py-16 sm:py-24 px-4 sm:px-8 overflow-hidden"
+        className="relative bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-900 text-white py-14 sm:py-24 px-4 sm:px-8 overflow-hidden"
       >
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold border border-indigo-500/30 mb-6">
             <FaBookOpen className="text-indigo-400" /> Digital Mobile E-Library Platform
           </span>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+          <h1 className="text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
             Read Thousands of Books <br className="hidden sm:inline" /> Anywhere, Anytime.
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed">
+          <p className="text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed">
             Access a world-class digital collection spanning academic materials, literature, and technology—built for students and avid readers on any device.
           </p>
 
@@ -166,7 +166,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Featured Books Section */}
+      {/* Featured Books Section - LARGER CARDS FOR MOBILE & APP BOX */}
       <section id="books" className="max-w-7xl mx-auto py-12 sm:py-20 px-4 sm:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 gap-4">
           <div>
@@ -186,49 +186,57 @@ function Home() {
         ) : books.length === 0 ? (
           <div className="text-center py-12 text-slate-400">No books found.</div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          /* Enforce 1 large book card per row on mobile (<640px) */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {books.map((book) => (
               <div
                 key={book.id}
-                className="bg-slate-800/90 border border-slate-700/70 rounded-2xl overflow-hidden shadow-xl hover:border-slate-600 transition flex flex-col"
+                className="bg-slate-800/90 border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl hover:border-indigo-500/50 transition duration-300 flex flex-col max-w-sm mx-auto w-full"
               >
-                <div className="h-60 bg-slate-950 relative overflow-hidden">
+                {/* Large Book Cover Container */}
+                <div className="h-72 sm:h-80 bg-slate-950 relative overflow-hidden flex items-center justify-center p-2">
                   {book.cover_image ? (
                     <img
                       src={`${API_BASE_URL}/uploads/covers/${book.cover_image}`}
                       alt={book.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover rounded-lg shadow-md"
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full text-slate-500 text-xs">
-                      <FaBookOpen className="text-3xl mb-2 text-slate-600" />
+                      <FaBookOpen className="text-4xl mb-2 text-slate-600" />
                       <span>No Cover Image</span>
                     </div>
                   )}
                   <span
-                    className={`absolute top-3 right-3 px-2.5 py-1 rounded-md text-[11px] font-bold text-white uppercase tracking-wider ${
+                    className={`absolute top-3 right-3 px-3 py-1 rounded-md text-[11px] font-extrabold text-white uppercase tracking-wider shadow-md ${
                       book.membership_level === "premium"
-                        ? "bg-rose-600 shadow-md"
-                        : "bg-emerald-600 shadow-md"
+                        ? "bg-rose-600"
+                        : "bg-emerald-600"
                     }`}
                   >
                     {book.membership_level === "premium" ? "Premium" : "Free Basic"}
                   </span>
                 </div>
 
+                {/* Card Content & Full Details */}
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="font-bold text-base text-white line-clamp-1">
+                    <h3 className="font-extrabold text-base sm:text-lg text-white leading-snug">
                       {book.title}
                     </h3>
-                    <p className="text-xs text-slate-400 mt-1">
-                      By <span className="text-slate-300 font-medium">{book.author}</span>
+                    <p className="text-xs text-slate-400 mt-1.5">
+                      Author: <span className="text-slate-200 font-semibold">{book.author}</span>
                     </p>
+                    {book.category_name && (
+                      <span className="inline-block mt-2 px-2.5 py-0.5 rounded-md bg-slate-700/80 text-indigo-300 text-[11px] font-medium border border-slate-600">
+                        {book.category_name}
+                      </span>
+                    )}
                   </div>
 
                   <button
                     onClick={() => setPreviewBook(book)}
-                    className="mt-5 w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold py-2.5 rounded-xl transition shadow"
+                    className="mt-6 w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold py-3 rounded-xl shadow-lg shadow-indigo-600/30 transition duration-200"
                   >
                     {book.membership_level === "premium" ? "Preview Sample" : "Read Book"}
                   </button>
@@ -253,7 +261,7 @@ function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Basic Plan */}
-            <div className="bg-slate-800/90 border border-slate-700/80 p-5 sm:p-8 rounded-2xl shadow-xl flex flex-col justify-between overflow-hidden relative">
+            <div className="bg-slate-800/90 border border-slate-700/80 p-5 sm:p-8 rounded-2xl shadow-xl flex flex-col justify-between overflow-hidden relative max-w-sm mx-auto w-full">
               <div>
                 {/* Title + FREE Badge Inline Next to Title */}
                 <div className="flex items-center gap-2 flex-wrap mb-4">
@@ -293,7 +301,7 @@ function Home() {
             </div>
 
             {/* Premium Plan */}
-            <div className="bg-gradient-to-b from-slate-800 to-indigo-950 border-2 border-indigo-500/80 p-5 sm:p-8 rounded-2xl shadow-2xl relative flex flex-col justify-between overflow-hidden">
+            <div className="bg-gradient-to-b from-slate-800 to-indigo-950 border-2 border-indigo-500/80 p-5 sm:p-8 rounded-2xl shadow-2xl relative flex flex-col justify-between overflow-hidden max-w-sm mx-auto w-full">
               {/* Recommended Top Badge Inside Card */}
               <span className="absolute top-3 right-3 sm:right-4 bg-indigo-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md shadow flex items-center gap-1">
                 <FaCrown className="text-xs" /> Recommended
