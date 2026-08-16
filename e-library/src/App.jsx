@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import AppDeviceWrapper from "./components/AppDeviceWrapper";
 import ReadingHistory from "./pages/ReadingHistory";
 import Payments from "./pages/Payments";
 import Payment from "./pages/Payment";
@@ -33,152 +34,154 @@ import Profile from "./pages/Profile";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      <AppDeviceWrapper>
+        <Routes>
 
-        {/* ================= PUBLIC ROUTES ================= */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+          {/* ================= PUBLIC ROUTES ================= */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* ================= ADMIN ROUTES ================= */}
+          {/* ================= ADMIN ROUTES ================= */}
 
-        <Route
-          path="/admin/dashboard"
-          element={
-            <AdminRoute>
-              <Dashboard />
-            </AdminRoute>
-          }
-        />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRoute>
+                <Dashboard />
+              </AdminRoute>
+            }
+          />
 
-        <Route
-          path="/admin/books"
-          element={
-            <AdminRoute>
-              <Books />
-            </AdminRoute>
-          }
-        />
+          <Route
+            path="/admin/books"
+            element={
+              <AdminRoute>
+                <Books />
+              </AdminRoute>
+            }
+          />
 
-        <Route
-          path="/admin/categories"
-          element={
-            <AdminRoute>
-              <Categories />
-            </AdminRoute>
-          }
-        />
+          <Route
+            path="/admin/categories"
+            element={
+              <AdminRoute>
+                <Categories />
+              </AdminRoute>
+            }
+          />
 
-        <Route
-          path="/admin/users"
-          element={
-            <AdminRoute>
-              <Users />
-            </AdminRoute>
-          }
-        />
+          <Route
+            path="/admin/users"
+            element={
+              <AdminRoute>
+                <Users />
+              </AdminRoute>
+            }
+          />
 
-        <Route
-          path="/admin/subscriptions"
-          element={
-            <AdminRoute>
-              <Subscriptions />
-            </AdminRoute>
-          }
-        />
+          <Route
+            path="/admin/subscriptions"
+            element={
+              <AdminRoute>
+                <Subscriptions />
+              </AdminRoute>
+            }
+          />
 
-        <Route
-          path="/admin/reports"
-          element={
-            <AdminRoute>
-              <Reports />
-            </AdminRoute>
-          }
-        />
+          <Route
+            path="/admin/reports"
+            element={
+              <AdminRoute>
+                <Reports />
+              </AdminRoute>
+            }
+          />
 
-        <Route
-          path="/admin/payments"
-          element={
-            <AdminRoute>
-              <Payments />
-            </AdminRoute>
-          }
-        />
+          <Route
+            path="/admin/payments"
+            element={
+              <AdminRoute>
+                <Payments />
+              </AdminRoute>
+            }
+          />
 
-        {/* ================= USER ROUTES ================= */}
+          {/* ================= USER ROUTES ================= */}
 
-        <Route
-          path="/user/dashboard"
-          element={
-            <ProtectedRoute>
-              <UserDashboard />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/user/dashboard"
+            element={
+              <ProtectedRoute>
+                <UserDashboard />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/user/history"
-          element={
-            <ProtectedRoute>
-              <ReadingHistory />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-  path="/payment/success"
-  element={
-    <ProtectedRoute>
-      <PaymentSuccess />
-    </ProtectedRoute>
-  }
-/>
+          <Route
+            path="/user/history"
+            element={
+              <ProtectedRoute>
+                <ReadingHistory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payment/success"
+            element={
+              <ProtectedRoute>
+                <PaymentSuccess />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/user/books"
-          element={
-            <ProtectedRoute>
-              <UserBooks />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/user/books"
+            element={
+              <ProtectedRoute>
+                <UserBooks />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/user/categories"
-          element={
-            <ProtectedRoute>
-              <UserCategories />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/user/categories"
+            element={
+              <ProtectedRoute>
+                <UserCategories />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/user/subscription"
-          element={
-            <ProtectedRoute>
-              <MySubscription />
-            </ProtectedRoute>
-          }
-        />
-           <Route
-  path="/user/payment"
-  element={
-    <ProtectedRoute>
-      <Payment />
-    </ProtectedRoute>
-  }
-/>
+          <Route
+            path="/user/subscription"
+            element={
+              <ProtectedRoute>
+                <MySubscription />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user/payment"
+            element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/user/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/user/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
 
-      </Routes>
+        </Routes>
+      </AppDeviceWrapper>
     </BrowserRouter>
   );
 }
