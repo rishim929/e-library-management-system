@@ -73,8 +73,9 @@ function Navbar() {
             )}
           </button>
 
+          {/* RIGHTWARD OPENING DROPDOWN (left-0 aligned with bell icon) */}
           {open && (
-            <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden">
+            <div className="absolute left-0 mt-2 w-72 sm:w-80 max-w-[calc(100vw-3rem)] bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden">
               <div className="flex justify-between items-center p-4 border-b border-slate-100 bg-slate-50">
                 <h3 className="font-bold text-slate-800 text-sm">
                   Notifications
