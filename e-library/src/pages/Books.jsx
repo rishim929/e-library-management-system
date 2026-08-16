@@ -114,7 +114,9 @@ function Books() {
 
   return (
     <AdminLayout>
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-white">Book Management</h1>
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-6 tracking-tight">
+        Book Management
+      </h1>
 
       {/* FORM */}
       <div className="bg-slate-800 border border-slate-700 p-4 sm:p-6 rounded-2xl shadow-xl mb-8">
@@ -229,9 +231,9 @@ function Books() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl overflow-x-auto">
-        <table className="w-full text-left text-sm text-slate-300 min-w-[600px]">
-          <thead className="bg-slate-900 text-slate-200 border-b border-slate-700 uppercase text-xs">
+      <div className="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-x-auto">
+        <table className="w-full text-left text-sm min-w-[600px] border-collapse">
+          <thead className="bg-slate-900 text-slate-200 uppercase text-xs font-bold border-b border-slate-800">
             <tr>
               <th className="p-3.5">ID</th>
               <th className="p-3.5">Title</th>
@@ -242,7 +244,7 @@ function Books() {
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-slate-700/60">
+          <tbody className="bg-white divide-y divide-slate-200 text-sm">
             {books
               .filter((b) =>
                 b.title.toLowerCase().includes(search.toLowerCase())
@@ -254,13 +256,13 @@ function Books() {
                 b.author.toLowerCase().includes(filterAuthor.toLowerCase())
               )
               .map((b) => (
-                <tr key={b.id} className="hover:bg-slate-700/40 transition">
-                  <td className="p-3.5 font-bold text-white">{b.id}</td>
-                  <td className="p-3.5 font-semibold text-white">{b.title}</td>
-                  <td className="p-3.5">{b.author}</td>
-                  <td className="p-3.5">{b.category_name}</td>
+                <tr key={b.id} className="hover:bg-slate-50 transition">
+                  <td className="p-3.5 font-bold text-slate-800">{b.id}</td>
+                  <td className="p-3.5 font-semibold text-slate-800">{b.title}</td>
+                  <td className="p-3.5 text-slate-700 font-medium">{b.author}</td>
+                  <td className="p-3.5 text-slate-700 font-medium">{b.category_name}</td>
                   <td className="p-3.5">
-                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${b.membership_level === "premium" ? "bg-rose-500/20 text-rose-300 border border-rose-500/30" : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"}`}>
+                    <span className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase ${b.membership_level === "premium" ? "bg-rose-100 text-rose-800 border border-rose-200" : "bg-emerald-100 text-emerald-800 border border-emerald-200"}`}>
                       {b.membership_level}
                     </span>
                   </td>
@@ -268,21 +270,21 @@ function Books() {
                     <div className="flex gap-2 justify-center">
                       <button
                         onClick={() => handleEdit(b)}
-                        className="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded-lg text-xs"
+                        className="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded-lg text-xs font-semibold shadow-sm"
                       >
                         Edit
                       </button>
 
                       <button
                         onClick={() => handleDelete(b.id)}
-                        className="bg-rose-600 hover:bg-rose-500 text-white px-3 py-1 rounded-lg text-xs"
+                        className="bg-rose-600 hover:bg-rose-500 text-white px-3 py-1 rounded-lg text-xs font-semibold shadow-sm"
                       >
                         Delete
                       </button>
 
                       <button
                         onClick={() => setPreviewBook(b)}
-                        className="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded-lg text-xs"
+                        className="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded-lg text-xs font-semibold shadow-sm"
                       >
                         View
                       </button>
