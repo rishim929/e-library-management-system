@@ -166,7 +166,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Featured Books Section - 5X ENLARGED BOOK CARD WIDTH (w-full max-w-[340px]) */}
+      {/* Featured Books Section - 3.5X WIDER (320px 1-COLUMN) & 3X SHORTER BALANCED RECTANGULAR CARDS */}
       <section id="books" className="max-w-7xl mx-auto py-12 sm:py-20 px-4 sm:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 gap-4">
           <div>
@@ -174,7 +174,7 @@ function Home() {
               Featured Catalog
             </h2>
             <p className="text-slate-400 text-sm mt-1">
-              Explore top-rated books in full definition
+              Explore top-rated digital books
             </p>
           </div>
 
@@ -188,29 +188,29 @@ function Home() {
         ) : books.length === 0 ? (
           <div className="text-center py-12 text-slate-400">No books found.</div>
         ) : (
-          /* Enforce 5x Enlarged Book Cards (w-full max-w-[340px]) on mobile */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 justify-items-center">
+          /* Featured Catalog Grid - 3.5x wider (320px) 1-column per row inside phone box */
+          <div className="featured-books-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
             {books.map((book) => (
               <div
                 key={book.id}
-                className="w-full max-w-[340px] sm:max-w-sm bg-slate-800/90 border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl hover:border-indigo-500/60 transition duration-300 flex flex-col"
+                className="w-full max-w-[320px] sm:max-w-sm bg-slate-800/90 border border-slate-700/80 rounded-2xl overflow-hidden shadow-xl hover:border-indigo-500/60 transition duration-300 flex flex-col"
               >
-                {/* 5x Enlarged Tall High-Definition Cover Container */}
-                <div className="h-72 sm:h-84 bg-slate-950 relative overflow-hidden flex items-center justify-center p-3">
+                {/* Balanced Rectangular Cover Container (h-48 sm:h-56) */}
+                <div className="h-48 sm:h-56 bg-slate-950 relative overflow-hidden flex items-center justify-center p-2">
                   {book.cover_image ? (
                     <img
                       src={`${API_BASE_URL}/uploads/covers/${book.cover_image}`}
                       alt={book.title}
-                      className="w-full h-full object-cover rounded-xl shadow-lg border border-slate-800"
+                      className="w-full h-full object-cover rounded-lg shadow-md border border-slate-800"
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full text-slate-500 text-xs">
-                      <FaBookOpen className="text-5xl mb-2 text-slate-600" />
+                      <FaBookOpen className="text-4xl mb-2 text-slate-600" />
                       <span>No Cover Image</span>
                     </div>
                   )}
                   <span
-                    className={`absolute top-4 right-4 px-3 py-1 rounded-md text-[11px] font-extrabold text-white uppercase tracking-wider shadow-lg ${
+                    className={`absolute top-3 right-3 px-2.5 py-1 rounded-md text-[10px] font-extrabold text-white uppercase tracking-wider shadow-md ${
                       book.membership_level === "premium"
                         ? "bg-rose-600"
                         : "bg-emerald-600"
@@ -220,17 +220,17 @@ function Home() {
                   </span>
                 </div>
 
-                {/* 5x Enlarged Card Details & Action Button */}
-                <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                {/* Card Details & Action Button */}
+                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="font-extrabold text-lg sm:text-xl text-white leading-snug">
+                    <h3 className="font-extrabold text-base text-white leading-snug line-clamp-2">
                       {book.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-400 mt-2">
+                    <p className="text-xs text-slate-400 mt-1.5">
                       Author: <span className="text-slate-200 font-semibold">{book.author}</span>
                     </p>
                     {book.category_name && (
-                      <span className="inline-block mt-2.5 px-3 py-1 rounded-md bg-slate-700/80 text-indigo-300 text-xs font-semibold border border-slate-600">
+                      <span className="inline-block mt-2 px-2.5 py-0.5 rounded-md bg-slate-700/80 text-indigo-300 text-[11px] font-medium border border-slate-600">
                         {book.category_name}
                       </span>
                     )}
@@ -238,7 +238,7 @@ function Home() {
 
                   <button
                     onClick={() => setPreviewBook(book)}
-                    className="mt-6 w-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-extrabold py-3.5 rounded-xl shadow-lg shadow-indigo-600/40 transition duration-200"
+                    className="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition duration-200"
                   >
                     {book.membership_level === "premium" ? "Preview Sample" : "Read Full Book"}
                   </button>
