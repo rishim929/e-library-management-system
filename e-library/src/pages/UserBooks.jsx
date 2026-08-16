@@ -90,13 +90,14 @@ function UserBooks() {
           No books found.
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="user-books-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
           {filteredBooks.map((book) => (
             <div
               key={book.id}
-              className="bg-slate-800/90 border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl hover:border-indigo-500/50 transition duration-300 flex flex-col max-w-sm mx-auto w-full"
+              className="bg-slate-800/90 border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl hover:border-indigo-500/50 transition duration-300 flex flex-col max-w-[320px] sm:max-w-sm mx-auto w-full"
             >
-              <div className="h-72 sm:h-80 bg-slate-950 relative overflow-hidden flex items-center justify-center p-2">
+              {/* Balanced Rectangular Cover Container (h-48 sm:h-56) */}
+              <div className="h-48 sm:h-56 bg-slate-950 relative overflow-hidden flex items-center justify-center p-2">
                 {book.cover_image ? (
                   <img
                     src={`${API_BASE_URL}/uploads/covers/${book.cover_image}`}
@@ -110,7 +111,7 @@ function UserBooks() {
                   </div>
                 )}
                 <span
-                  className={`absolute top-3 right-3 px-3 py-1 rounded-md text-[11px] font-extrabold text-white uppercase tracking-wider shadow-md ${
+                  className={`absolute top-3 right-3 px-2.5 py-1 rounded-md text-[10px] font-extrabold text-white uppercase tracking-wider shadow-md ${
                     book.membership_level === "premium"
                       ? "bg-rose-600"
                       : "bg-emerald-600"
@@ -120,13 +121,14 @@ function UserBooks() {
                 </span>
               </div>
 
-              <div className="p-5 flex-1 flex flex-col justify-between">
+              {/* Card Body */}
+              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                 <div>
-                  <h2 className="text-base sm:text-lg font-bold text-white leading-snug">
+                  <h2 className="text-base font-extrabold text-white leading-snug line-clamp-2">
                     {book.title}
                   </h2>
 
-                  <p className="text-xs text-slate-400 mt-1.5">
+                  <p className="text-xs text-slate-400 mt-1">
                     Author: <span className="text-slate-200 font-semibold">{book.author}</span>
                   </p>
 
@@ -137,29 +139,29 @@ function UserBooks() {
 
                 {book.membership_level === "premium" &&
                 user?.membership_type !== "premium" ? (
-                  <div className="mt-6">
+                  <div className="mt-4">
                     <button
                       onClick={() => handleOpenBook(book)}
-                      className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold py-3 rounded-xl shadow-lg shadow-indigo-600/30 transition duration-200"
+                      className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition duration-200"
                     >
                       Preview Book
                     </button>
 
-                    <p className="text-slate-400 text-[11px] text-center mt-2">
+                    <p className="text-slate-400 text-[10px] text-center mt-1.5">
                       Free Preview (First 5 Pages) • Upgrade for full PDF
                     </p>
                   </div>
                 ) : book.pdf_file ? (
                   <button
                     onClick={() => handleOpenBook(book)}
-                    className="w-full mt-6 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold py-3 rounded-xl shadow-lg shadow-emerald-600/30 transition duration-200"
+                    className="w-full mt-4 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-600/30 transition duration-200"
                   >
                     Read Full Book
                   </button>
                 ) : (
                   <button
                     disabled
-                    className="w-full mt-6 bg-slate-700 text-slate-400 text-xs sm:text-sm font-semibold py-3 rounded-xl cursor-not-allowed"
+                    className="w-full mt-4 bg-slate-700 text-slate-400 text-xs sm:text-sm font-semibold py-2.5 rounded-xl cursor-not-allowed"
                   >
                     PDF Not Available
                   </button>
