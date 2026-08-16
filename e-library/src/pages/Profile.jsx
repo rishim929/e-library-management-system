@@ -71,18 +71,17 @@ function Profile() {
 
   return (
     <UserLayout>
-
-      <h1 className="text-3xl font-bold mb-8">
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-6 tracking-tight">
         👤 My Profile
       </h1>
 
-      <div className="bg-white rounded-xl shadow p-8 max-w-2xl">
-
+      <div className="bg-white rounded-2xl shadow-xl border border-slate-200/80 p-6 sm:p-8 max-w-2xl">
         <div className="mb-5">
-          <label>Name</label>
-
+          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">
+            Name
+          </label>
           <input
-            className="border w-full p-3 rounded mt-2"
+            className="border border-slate-300 w-full p-3 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
             value={profile.name}
             onChange={(e) =>
               setProfile({
@@ -94,20 +93,22 @@ function Profile() {
         </div>
 
         <div className="mb-5">
-          <label>Email</label>
-
+          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">
+            Email
+          </label>
           <input
-            className="border w-full p-3 rounded mt-2 bg-gray-100"
+            className="border border-slate-300 w-full p-3 rounded-xl text-sm font-semibold text-slate-800 bg-slate-100/90 cursor-not-allowed"
             value={profile.email}
             readOnly
           />
         </div>
 
         <div className="mb-5">
-          <label>Preferred Category</label>
-
+          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">
+            Preferred Category
+          </label>
           <select
-            className="border w-full p-3 rounded mt-2"
+            className="border border-slate-300 w-full p-3 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
             value={profile.preferred_category || ""}
             onChange={(e) =>
               setProfile({
@@ -117,7 +118,6 @@ function Profile() {
             }
           >
             <option value="">Select Category</option>
-
             {categories.map((cat) => (
               <option
                 key={cat.id}
@@ -130,12 +130,13 @@ function Profile() {
         </div>
 
         <div className="mb-5">
-          <label>New Password</label>
-
+          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">
+            New Password
+          </label>
           <input
             type="password"
             placeholder="Leave blank to keep current password"
-            className="border w-full p-3 rounded mt-2"
+            className="border border-slate-300 w-full p-3 rounded-xl text-sm font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
             value={profile.password}
             onChange={(e) =>
               setProfile({
@@ -146,25 +147,24 @@ function Profile() {
           />
         </div>
 
-        <div className="mb-5">
-          <label>Membership</label>
-
+        <div className="mb-6">
+          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">
+            Membership
+          </label>
           <input
-            className="border w-full p-3 rounded mt-2 bg-gray-100"
-            value={profile.membership_type}
+            className="border border-slate-300 w-full p-3 rounded-xl text-sm font-bold text-slate-800 bg-slate-100/90 capitalize cursor-not-allowed"
+            value={profile.membership_type || "basic"}
             readOnly
           />
         </div>
 
         <button
           onClick={handleSave}
-          className="bg-green-700 text-white px-8 py-3 rounded hover:bg-green-800"
+          className="bg-green-700 hover:bg-green-800 text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg shadow-green-700/20 transition text-sm"
         >
           Save Changes
         </button>
-
       </div>
-
     </UserLayout>
   );
 }

@@ -17,6 +17,11 @@ input::placeholder, select::placeholder, textarea::placeholder {
   opacity: 1 !important;
 }
 
+/* Explicit dark slate text for form labels inside white containers */
+.bg-white label {
+  color: #334155 !important; /* Dark Slate 700 for labels */
+}
+
 /* Explicit high-contrast table data cell text */
 table tbody td {
   color: #1e293b !important; /* Dark slate 800 for high-contrast legible text */
