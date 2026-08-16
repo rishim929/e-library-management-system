@@ -3,10 +3,37 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #f5f7fa;
+  background: #0f172a;
 }
 
-/* Force 1-column layout and 5x wider book cards inside phone box container */
+/* Explicit high-contrast styling for form controls to prevent faded text */
+input, select, textarea {
+  color: #0f172a !important; /* Dark slate text for white inputs */
+  background-color: #ffffff;
+}
+
+input::placeholder, select::placeholder, textarea::placeholder {
+  color: #64748b !important; /* Slate 500 clear placeholder */
+  opacity: 1 !important;
+}
+
+/* Dark mode inputs override */
+.bg-slate-900 input,
+.bg-slate-800 input,
+.bg-slate-900 select,
+.bg-slate-800 select {
+  color: #f8fafc !important;
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+.bg-slate-900 input::placeholder,
+.bg-slate-800 input::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1 !important;
+}
+
+/* Force 1-column layout and 320px wide book cards inside phone box container */
 .app-box-container .grid {
   grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
 }
