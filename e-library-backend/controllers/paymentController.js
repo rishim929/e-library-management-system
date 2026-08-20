@@ -39,8 +39,8 @@ exports.initiatePayment = async (req, res) => {
     } = req.body;
 
     const payload = {
-      return_url: "http://localhost:5173/payment/success",
-      website_url: "http://localhost:5173",
+      return_url: process.env.KHALTI_RETURN_URL || "http://localhost:5173/payment/success",
+      website_url: process.env.KHALTI_WEBSITE_URL || "http://localhost:5173",
       amount,
       purchase_order_id,
       purchase_order_name,

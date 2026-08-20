@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "E-Library",
+    "slug": "e-library-management",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f0f23"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.elibrary.management"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0f0f23"
+      },
+      "package": "com.elibrary.management",
+      "edgeToEdgeLayoutEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
+  }
+}
