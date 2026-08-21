@@ -65,13 +65,12 @@ exports.register = async (req, res) => {
       }
     );
 
-    // ================= SEND WELCOME EMAIL =================
-    try {
-      await sendWelcomeEmail(name, email);
-      console.log("Welcome email sent successfully.");
-    } catch (mailErr) {
-      console.log("Welcome email error:", mailErr);
-    }
+    // ================= SEND WELCOME EMAIL (fire-and-forget) =================
+    // Do NOT await this — send the response immediately so the user
+    // is never stuck waiting on SMTP which can be slow on hosted servers.
+    sendWelcomeEmail(name, email).catch((mailErr) => {
+      console.log("Welcome email error (non-blocking):", mailErr);
+    });
 
     res.json({
       message: "User registered successfully",
@@ -125,6 +124,7 @@ exports.login = (req, res) => {
     });
   });
 };
+
 
 // ================= FORGOT PASSWORD (REQUEST OTP) =================
 exports.forgotPassword = (req, res) => {
